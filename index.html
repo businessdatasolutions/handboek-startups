@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Handboek voor startende AI-ondernemers — Business Data Solutions</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'&gt;&lt;g fill='%231a1a1a'&gt;&lt;polygon points='9,29 11,10 17,10 19,29'/&gt;&lt;polygon points='8,8.5 20,8.5 19,10 9,10'/&gt;&lt;rect x='11' y='5' width='6' height='3.5'/&gt;&lt;path d='M10.5 5 Q10.5 1.5 14 1.5 Q17.5 1.5 17.5 5 Z'/&gt;&lt;rect x='13.5' y='0' width='1' height='1.8'/&gt;&lt;/g&gt;&lt;rect x='13' y='6' width='2' height='2' fill='%23d4db3e'/&gt;&lt;g stroke='%23d4db3e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'&gt;&lt;path d='M21 4 L26 7 L21 10'/&gt;&lt;path d='M26 4 L31 7 L26 10'/&gt;&lt;/g&gt;&lt;/svg&gt;">
+<style>
+  :root {
+    /* BDS Palette C — Strict Minimal */
+    --primary: #d4db3e;          /* chartreuse — one signal accent per screen */
+    --supporting: #1a1a1a;       /* warm black — all structure */
+    --cream: #f5f0e6;            /* neutral warm tint */
+    --bg-yellow: #fafbf0;        /* conversion-moment background */
+    --bg-cream-2: #f0ebe0;       /* alternation cream */
+
+    /* Editorial aliases (the handbook's existing tokens point at BDS palette) */
+    --c-yellow: var(--primary);
+    --c-yellow-deep: #b8c024;
+    --c-yellow-soft: var(--bg-yellow);
+    --c-ink: var(--supporting);
+    --c-ink-soft: var(--supporting);
+    --c-paper: var(--cream);
+    --c-paper-2: var(--bg-cream-2);
+    --c-paper-3: #ede7d8;
+    --c-text-secondary: #4b5563;
+    --c-muted: #6b7280;
+    --c-line: rgba(26, 26, 26, 0.12);
+    --c-line-strong: rgba(26, 26, 26, 0.25);
+
+    /* System font stack — no webfonts (per stylebook) */
+    --f-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --f-mono-system: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --f-display: var(--f-system);
+    --f-body: var(--f-system);
+    --f-ui: var(--f-system);
+    --f-mono: var(--f-mono-system);
+    --f-hand: var(--f-system);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--f-body);
+    background: var(--c-paper);
+    color: var(--c-ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--c-yellow-deep), var(--c-yellow));
+    z-index: 200;
+    transition: width 80ms linear;
+  }
+
+  nav.top {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    background: rgba(245, 240, 230, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--c-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  nav.top .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+  }
+  nav.top .brand .dot {
+    width: 10px; height: 10px;
+    background: var(--c-yellow);
+    border-radius: 50%;
+  }
+  nav.top .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  nav.top .toc-toggle,
+  nav.top .pdf-toggle {
+    background: none;
+    border: 1px solid var(--c-line-strong);
+    color: var(--c-ink);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  nav.top .toc-toggle:hover { background: var(--c-ink); color: var(--c-paper); }
+  nav.top .pdf-toggle:hover { background: var(--c-yellow); color: var(--c-ink); border-color: var(--c-yellow-deep); }
+  nav.top .pdf-toggle svg { width: 11px; height: 11px; }
+
+  aside.toc {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 380px;
+    background: var(--c-paper-2);
+    border-left: 1px solid var(--c-line);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 150;
+    overflow-y: auto;
+    padding: 5rem 2rem 3rem;
+    font-family: var(--f-ui);
+  }
+  aside.toc.open { transform: translateX(0); box-shadow: -20px 0 60px rgba(0,0,0,0.1); }
+  aside.toc .label {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--c-muted);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  aside.toc .part {
+    margin-bottom: 1.5rem;
+  }
+  aside.toc .part-title {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--c-yellow-deep);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+  aside.toc ol {
+    list-style: none;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--c-line);
+  }
+  aside.toc li { margin: 0.45rem 0; }
+  aside.toc a {
+    color: var(--c-ink);
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    opacity: 0.78;
+    transition: opacity 0.2s, color 0.2s;
+    display: block;
+  }
+  aside.toc a:hover { opacity: 1; color: var(--c-yellow-deep); }
+  aside.toc a.active { opacity: 1; color: var(--c-yellow-deep); font-weight: 500; }
+  aside.toc .ch-num {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    color: var(--c-muted);
+    margin-right: 0.5rem;
+  }
+
+  .cover {
+    min-height: 100vh;
+    padding: 7rem 2rem 4rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .cover-publisher {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-bottom: 1.25rem;
+    font-family: var(--f-system);
+  }
+  .cover-publisher .brand-mark {
+    width: 28px; height: 28px;
+    display: block;
+    flex-shrink: 0;
+  }
+  .cover-publisher .brand-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--c-ink);
+    letter-spacing: -0.01em;
+  }
+  .cover-publisher .brand-sep {
+    color: var(--c-muted);
+    margin: 0 0.25rem;
+  }
+  .cover-publisher .brand-line {
+    font-size: 0.8rem;
+    color: var(--c-muted);
+    font-weight: 400;
+  }
+  .cover-meta {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--c-muted);
+    display: flex;
+    gap: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--c-line);
+    flex-wrap: wrap;
+  }
+  .cover-meta b { color: var(--c-ink); font-weight: 700; }
+  .cover h1 {
+    font-family: var(--f-display);
+    font-weight: 300;
+    font-size: clamp(2.8rem, 8.5vw, 6.8rem);
+    line-height: 0.97;
+    letter-spacing: -0.03em;
+    margin: 3rem 0 1.5rem;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+  }
+  .cover h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--c-yellow-deep);
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  }
+  .cover .subtitle {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 350;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--c-text-secondary);
+    max-width: 56ch;
+    line-height: 1.35;
+    margin-bottom: 4rem;
+  }
+  .cover-illu {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 3rem;
+  }
+  .cover-illu svg {
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+  }
+  .cover-cta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+  .cover-cta .start {
+    font-family: var(--f-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: var(--c-ink);
+    color: var(--c-paper);
+    padding: 0.9rem 1.5rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--c-ink);
+  }
+  .cover-cta .start:hover { background: transparent; color: var(--c-ink); }
+  .cover-cta .time {
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 6px); }
+  }
+
+  article.book {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  article.book section.chapter {
+    padding: 5rem 0 4rem;
+    scroll-margin-top: 80px;
+  }
+  article.book section.part-opener {
+    padding: 7rem 0 3rem;
+    scroll-margin-top: 80px;
+    text-align: center;
+    border-top: 1px solid var(--c-line);
+    margin-top: 4rem;
+  }
+
+  .part-label {
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--c-yellow-deep);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+  .part-title {
+    font-family: var(--f-display);
+    font-weight: 350;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+  }
+  .part-title em {
+    font-style: italic;
+    color: var(--c-yellow-deep);
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  }
+  .part-blurb {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--c-text-secondary);
+    max-width: 52ch;
+    margin: 0 auto;
+    line-height: 1.45;
+  }
+  .part-divider {
+    margin: 2.5rem auto 0;
+    width: 80px;
+    height: 1px;
+    background: var(--c-line-strong);
+  }
+
+  .chapter-num {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--c-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .chapter-num::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--c-ink);
+  }
+
+  h2.chapter-title {
+    font-family: var(--f-display);
+    font-weight: 350;
+    font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    margin-bottom: 2rem;
+    font-variation-settings: "opsz" 96, "SOFT" 40;
+  }
+  h2.chapter-title em {
+    font-style: italic;
+    color: var(--c-yellow-deep);
+    font-variation-settings: "opsz" 96, "SOFT" 100, "WONK" 1;
+  }
+  h2.chapter-title .ch-tag {
+    display: block;
+    font-size: 0.85rem;
+    font-family: var(--f-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--c-yellow-deep);
+    margin-bottom: 0.6rem;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin: 2.5rem 0 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  article.book p {
+    font-size: 1.07rem;
+    line-height: 1.7;
+    margin: 1.1rem 0;
+    font-variation-settings: "opsz" 14;
+  }
+  article.book p em { font-style: italic; }
+  article.book p strong { font-weight: 600; color: var(--c-ink); }
+  article.book a {
+    color: var(--c-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--c-yellow);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
+  }
+  article.book a:hover { text-decoration-color: var(--c-yellow-deep); }
+  article.book ul, article.book ol { margin: 1rem 0 1.2rem 1.4rem; }
+  article.book li { margin: 0.5rem 0; font-size: 1.05rem; line-height: 1.65; }
+
+  section.chapter > p:first-of-type::first-letter,
+  section.chapter > .drop-cap-target::first-letter {
+    font-family: var(--f-display);
+    font-size: 4.6rem;
+    font-weight: 350;
+    float: left;
+    line-height: 0.85;
+    padding: 0.4rem 0.8rem 0 0;
+    color: var(--c-yellow-deep);
+    font-variation-settings: "opsz" 144, "SOFT" 60;
+  }
+
+  blockquote {
+    font-family: var(--f-display);
+    font-weight: 350;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--c-ink);
+    margin: 2.2rem -1rem;
+    padding: 1.4rem 1.6rem 1.4rem 2rem;
+    border-left: 3px solid var(--c-yellow);
+    background: var(--c-yellow-soft);
+    position: relative;
+    font-variation-settings: "opsz" 72;
+  }
+  blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -0.4rem; left: 0.4rem;
+    font-size: 3.5rem;
+    color: var(--c-yellow-deep);
+    opacity: 0.4;
+    font-style: normal;
+    font-family: var(--f-display);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--c-line);
+    line-height: 1.5;
+  }
+  th {
+    font-family: var(--f-ui);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-muted);
+    font-weight: 600;
+    background: var(--c-paper-2);
+  }
+  td em { color: var(--c-text-secondary); }
+
+  .callout-acc {
+    background: linear-gradient(180deg, #fffbe6 0%, #fef7d6 100%);
+    border: 1px solid var(--c-yellow);
+    border-left: 4px solid var(--c-yellow-deep);
+    padding: 1.5rem 1.75rem;
+    margin: 2rem -1rem;
+    position: relative;
+    border-radius: 2px;
+  }
+  .callout-acc::before {
+    content: '📒';
+    position: absolute;
+    top: -14px; left: 1rem;
+    background: var(--c-paper);
+    padding: 2px 8px;
+    font-size: 1.1rem;
+  }
+  .callout-acc .callout-label {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--c-yellow-deep);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .callout-acc p { font-size: 1rem; line-height: 1.6; margin: 0.5rem 0; }
+  .callout-acc p:first-of-type { margin-top: 0; }
+  .callout-acc p:last-of-type { margin-bottom: 0; }
+
+  .ribbon {
+    margin: 1.75rem -1rem;
+    /* Left gutter sized for the longest NL label ("VERMIJD", 7 chars) — wider than
+       the EN counterpart ("AVOID", 5 chars) which only needed 4.6rem. */
+    padding: 1rem 1.4rem 1rem 6rem;
+    position: relative;
+    font-size: 1.02rem;
+    line-height: 1.55;
+    border-radius: 2px;
+  }
+  .ribbon::before {
+    position: absolute;
+    left: 1rem; top: 1rem;
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+  }
+  .ribbon.action {
+    background: var(--bg-yellow);
+    border-left: 4px solid var(--primary);
+  }
+  .ribbon.action::before {
+    content: 'DOEN';
+    background: var(--primary);
+    color: var(--supporting);
+  }
+  .ribbon.anti {
+    background: transparent;
+    border-left: 4px dashed var(--supporting);
+  }
+  .ribbon.anti::before {
+    content: 'VERMIJD';
+    background: var(--supporting);
+    color: var(--cream);
+  }
+  .ribbon.note {
+    background: var(--cream);
+    border-left: 4px solid var(--supporting);
+  }
+  .ribbon.note::before {
+    content: 'LET OP';
+    background: var(--supporting);
+    color: var(--cream);
+  }
+  .ribbon strong { font-weight: 700; }
+
+  .viz {
+    margin: 2.5rem -2rem;
+    padding: 2rem 2rem;
+    background: var(--c-paper-2);
+    border: 1px solid var(--c-line);
+    border-radius: 4px;
+    position: relative;
+  }
+  .viz-label {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--c-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .viz-label::before {
+    content: '';
+    width: 18px; height: 1px;
+    background: var(--c-muted);
+  }
+  .viz h4 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--c-ink);
+    font-variation-settings: "opsz" 72, "WONK" 1;
+  }
+  .viz-caption {
+    font-family: var(--f-ui);
+    font-size: 0.85rem;
+    color: var(--c-text-secondary);
+    margin-top: 0.75rem;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .sketch { width: 100%; height: auto; }
+  .sketch path, .sketch line, .sketch polyline, .sketch rect, .sketch circle, .sketch ellipse, .sketch polygon {
+    fill: none;
+    stroke: var(--c-ink);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .sketch .fill-yellow { fill: var(--c-yellow); fill-opacity: 0.4; }
+  .sketch .fill-rust { fill: none; stroke-dasharray: 4 4; }
+  .sketch .fill-moss { fill: var(--c-yellow); fill-opacity: 0.4; }
+  .sketch .fill-ink { fill: var(--c-ink); }
+  .sketch text {
+    font-family: var(--f-system);
+    font-size: 15px;
+    font-weight: 500;
+    fill: var(--c-ink);
+    stroke: none;
+  }
+  .sketch text.small { font-size: 12px; font-weight: 400; fill: var(--c-text-secondary); }
+  .sketch text.tag {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    fill: var(--c-muted);
+  }
+  .sketch .dashed { stroke-dasharray: 4 4; }
+  .sketch .thick { stroke-width: 2.5; }
+
+  .diagnostic {
+    background: var(--c-paper-2);
+    padding: 2rem;
+    margin: 2.5rem -2rem;
+    border: 1px solid var(--c-line);
+    font-family: var(--f-ui);
+  }
+  .diagnostic h4 {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    margin-bottom: 0.4rem;
+    font-variation-settings: "opsz" 72, "WONK" 1;
+  }
+  .diagnostic .diag-sub {
+    font-family: var(--f-display);
+    font-style: italic;
+    color: var(--c-text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  .diagnostic .axes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (max-width: 600px) {
+    .diagnostic .axes { grid-template-columns: 1fr; }
+  }
+  .diag-controls .row { margin: 1rem 0; }
+  .diag-controls label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    color: var(--c-text-secondary);
+  }
+  .diag-controls label .axis-name { font-weight: 600; color: var(--c-ink); }
+  .diag-controls .scale-tags {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--f-mono);
+    font-size: 0.65rem;
+    color: var(--c-muted);
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .diag-controls input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 4px;
+    background: var(--c-line);
+    border-radius: 2px;
+    outline: none;
+  }
+  .diag-controls input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    background: var(--c-yellow-deep);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--c-paper);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .diag-controls input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    background: var(--c-yellow-deep);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--c-paper);
+  }
+  .diag-readout {
+    text-align: center;
+    padding: 1rem;
+  }
+  .diag-readout .score {
+    font-family: var(--f-display);
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1;
+    font-variation-settings: "opsz" 144;
+    transition: color 0.4s;
+  }
+  .diag-readout .out-of {
+    font-family: var(--f-mono);
+    font-size: 0.85rem;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .diag-readout .verdict {
+    margin-top: 0.5rem;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    min-height: 1.5em;
+    color: var(--c-text-secondary);
+    font-variation-settings: "opsz" 32, "WONK" 1;
+    transition: color 0.4s;
+  }
+  .diag-readout.go .score, .diag-readout.go .verdict { color: var(--c-yellow-deep); }
+  .diag-readout.maybe .score, .diag-readout.maybe .verdict { color: var(--c-ink); opacity: 0.7; }
+  .diag-readout.no .score, .diag-readout.no .verdict { color: var(--c-ink); text-decoration: line-through; text-decoration-thickness: 2px; }
+
+  .orgchart {
+    margin: 2.5rem -2rem;
+    background: var(--c-paper-2);
+    padding: 2rem;
+    border: 1px solid var(--c-line);
+  }
+  .org-toggle {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--c-paper);
+    padding: 4px;
+    border-radius: 100px;
+    width: fit-content;
+    margin: 0 auto 1.5rem;
+    border: 1px solid var(--c-line);
+  }
+  .org-toggle button {
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 100px;
+    color: var(--c-muted);
+    transition: all 0.3s;
+  }
+  .org-toggle button.active {
+    background: var(--c-ink);
+    color: var(--c-paper);
+  }
+  .org-stage { height: 380px; position: relative; }
+  .org-stage svg { width: 100%; height: 100%; }
+
+  .rev-chart {
+    margin: 2.5rem -2rem;
+    background: var(--c-paper-2);
+    padding: 2rem;
+    border: 1px solid var(--c-line);
+  }
+  .rev-bars { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 1rem; }
+  .rev-row { display: grid; grid-template-columns: 140px 1fr 100px; align-items: center; gap: 1rem; font-family: var(--f-ui); }
+  .rev-label { font-size: 0.85rem; font-weight: 500; }
+  .rev-label .sub { display: block; font-size: 0.72rem; color: var(--c-muted); font-weight: 400; }
+  .rev-bar-container { background: var(--c-paper); height: 36px; position: relative; border-radius: 2px; overflow: hidden; border: 1px solid var(--c-line); }
+  .rev-bar { height: 100%; width: 0%; transition: width 1.6s cubic-bezier(0.65, 0, 0.35, 1); display: flex; align-items: center; padding-left: 0.6rem; color: white; font-family: var(--f-mono); font-size: 0.72rem; font-weight: 600; }
+  .rev-bar.legacy { background: linear-gradient(90deg, #6b7280, #9ca3af); }
+  .rev-bar.native { background: linear-gradient(90deg, var(--c-yellow-deep), var(--c-yellow)); color: var(--c-ink); }
+  .rev-value { font-family: var(--f-mono); font-size: 0.82rem; font-weight: 600; text-align: right; }
+
+  .flip-viz {
+    margin: 2.5rem -2rem;
+    background: var(--c-paper-2);
+    padding: 2rem;
+    border: 1px solid var(--c-line);
+  }
+  .flip-stage {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem 0;
+  }
+  @media (max-width: 600px) {
+    .flip-stage { grid-template-columns: 1fr; }
+    .flip-arrow { transform: rotate(90deg); }
+  }
+  .flip-side {
+    background: var(--c-paper);
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border: 1px solid var(--c-line);
+    border-radius: 4px;
+  }
+  .flip-era {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--c-muted);
+    margin-bottom: 0.6rem;
+  }
+  .flip-side .safe { color: var(--c-ink); font-weight: 700; background: var(--bg-yellow); padding: 0 0.25em; border-radius: 2px; }
+  .flip-side .risky { color: var(--c-ink); font-weight: 600; text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.75; }
+  .flip-row {
+    font-family: var(--f-display);
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+    line-height: 1.3;
+  }
+  .flip-row .qual {
+    font-family: var(--f-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-top: 2px;
+  }
+  .flip-arrow {
+    font-family: var(--f-display);
+    font-size: 2rem;
+    color: var(--c-yellow-deep);
+  }
+
+  .contrast-viz {
+    margin: 2.5rem -2rem;
+    background: var(--c-paper-2);
+    padding: 2rem;
+    border: 1px solid var(--c-line);
+  }
+  .contrast-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  @media (max-width: 600px) { .contrast-pair { grid-template-columns: 1fr; } }
+  .contrast-panel {
+    background: var(--c-paper);
+    padding: 1.25rem 1rem;
+    border: 1px solid var(--c-line);
+    border-radius: 4px;
+    text-align: center;
+  }
+  .contrast-panel.modern { border: 1px solid var(--c-ink); background: var(--bg-yellow); }
+  .contrast-panel.legacy { border: 1px dashed var(--c-ink); background: transparent; }
+  .contrast-panel .tag {
+    font-family: var(--f-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--c-muted);
+    margin-bottom: 0.7rem;
+  }
+  .contrast-panel.modern .tag { color: var(--c-ink); font-weight: 700; }
+  .contrast-panel.legacy .tag { color: var(--c-muted); }
+  .contrast-panel ul { list-style: none; margin: 0; padding: 0; }
+  .contrast-panel li {
+    font-family: var(--f-ui);
+    font-size: 0.88rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px dashed var(--c-line);
+  }
+  .contrast-panel li:last-child { border-bottom: none; }
+
+  .anti-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+  @media (max-width: 600px) { .anti-grid { grid-template-columns: 1fr; } }
+  .anti-card {
+    background: var(--c-paper-2);
+    padding: 1.4rem;
+    border: 1px solid var(--c-line);
+    border-top: 4px dashed var(--c-ink);
+    border-radius: 2px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .anti-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+  .anti-card .num {
+    font-family: var(--f-display);
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--c-ink);
+    opacity: 0.18;
+    position: absolute;
+    top: 0.5rem; right: 1rem;
+    font-variation-settings: "opsz" 144;
+  }
+  .anti-card h4 {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    font-variation-settings: "opsz" 72;
+  }
+  .anti-card p { font-size: 0.92rem; line-height: 1.5; color: var(--c-text-secondary); margin: 0; }
+  .anti-card .src {
+    font-family: var(--f-mono);
+    font-size: 0.65rem;
+    color: var(--c-muted);
+    margin-top: 0.6rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .source-list { list-style: none; margin: 0; padding: 0; }
+  .source-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--c-line);
+    font-family: var(--f-ui);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .source-list li code {
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    background: var(--c-paper-2);
+    padding: 1px 6px;
+    border-radius: 2px;
+    color: var(--c-yellow-deep);
+  }
+
+  .calendar-table {
+    margin: 1.5rem 0;
+    border: 1px solid var(--c-line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .calendar-table .row {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    border-bottom: 1px solid var(--c-line);
+    transition: background 0.2s;
+  }
+  .calendar-table .row:last-child { border-bottom: none; }
+  .calendar-table .row:hover { background: var(--c-yellow-soft); }
+  .calendar-table .col {
+    padding: 0.9rem 1.1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .calendar-table .col.part-cell {
+    background: var(--c-paper-2);
+    font-family: var(--f-display);
+    font-style: italic;
+    font-variation-settings: "opsz" 32;
+  }
+
+  footer.book-footer {
+    margin-top: 6rem;
+    padding: 4rem 2rem;
+    text-align: center;
+    background: var(--c-ink);
+    color: var(--c-paper);
+    font-family: var(--f-ui);
+  }
+  footer.book-footer .finis {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    font-variation-settings: "opsz" 144, "WONK" 1;
+  }
+  footer.book-footer .meta {
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 2rem;
+  }
+  footer.book-footer .top-link {
+    color: var(--c-yellow);
+    font-family: var(--f-mono);
+    font-size: 0.8rem;
+    text-decoration: none;
+    border: 1px solid var(--c-yellow);
+    padding: 0.6rem 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  footer.book-footer .top-link:hover { background: var(--c-yellow); color: var(--c-ink); }
+  footer.book-footer .colophon {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(245, 240, 230, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-family: var(--f-system);
+    font-size: 0.8rem;
+    color: rgba(245, 240, 230, 0.7);
+  }
+  footer.book-footer .colophon .brand-mark {
+    width: 22px; height: 22px;
+    display: block;
+  }
+  footer.book-footer .colophon .name {
+    color: var(--c-paper);
+    font-weight: 700;
+  }
+  footer.book-footer .colophon a {
+    color: var(--c-yellow);
+    text-decoration: none;
+  }
+  footer.book-footer .colophon a:hover { text-decoration: underline; }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 720px) {
+    .viz, .rev-chart, .orgchart, .flip-viz, .contrast-viz, .diagnostic { margin-left: -1rem; margin-right: -1rem; padding: 1.5rem 1rem; }
+    blockquote { margin-left: -0.5rem; margin-right: -0.5rem; }
+    .callout-acc { margin-left: -0.5rem; margin-right: -0.5rem; }
+    .ribbon { margin-left: -0.5rem; margin-right: -0.5rem; }
+  }
+
+  /* Horizontaal scrollende wrapper voor brede HTML-tabellen op smalle schermen */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; }
+  .table-wrap table { margin: 0; }
+
+  /* Smartphone-laag — eronder versmallen we hard-coded gutters en paddings die op desktop
+     comfortabel zijn maar op smal scherm de leeskolom oneerlijk afknijpen. */
+  @media (max-width: 480px) {
+    article.book { padding: 0 1.1rem; }
+    nav.top { padding: 0.8rem 1rem; }
+    nav.top .toc-toggle, nav.top .pdf-toggle { padding: 0.35rem 0.65rem; font-size: 0.65rem; }
+    aside.toc { width: min(380px, 88vw); padding: 4.5rem 1.5rem 2.5rem; }
+
+    /* Drop-cap kleiner; anders overheerst hij de eerste regels op smal scherm */
+    section.chapter > .drop-cap-target::first-letter { font-size: 3.4rem; padding: 0.3rem 0.55rem 0 0; }
+
+    /* Ribbon-gutter krimpen zodat tekst niet in een smalle reep wordt gedwongen */
+    .ribbon { padding: 0.9rem 1rem 0.9rem 4.5rem; font-size: 0.96rem; }
+    .ribbon::before { left: 0.7rem; top: 0.85rem; font-size: 0.62rem; padding: 2px 5px; }
+
+    /* Callout en blockquote ademen smaller */
+    .callout-acc { padding: 1.25rem 1.1rem; }
+    blockquote { padding: 1.1rem 1rem 1.1rem 1.4rem; font-size: 1.1rem; }
+    blockquote::before { font-size: 2.8rem; }
+
+    /* Calendar-table klapt naar één kolom — deel-naam boven, beschrijving eronder */
+    .calendar-table .row { grid-template-columns: 1fr; }
+    .calendar-table .col { padding: 0.7rem 1rem; }
+    .calendar-table .col.part-cell { padding-bottom: 0.2rem; }
+
+    /* Org-toggle-buttons stapelen onder elkaar in plaats van krap naast elkaar */
+    .org-toggle { flex-direction: column; gap: 0.4rem; }
+    .org-toggle button { width: 100%; }
+
+    /* Diagnose-readout en scoringspaneel iets compacter */
+    .diag-readout { padding: 1rem; }
+
+    /* Tabellen iets compactere padding voor smalle schermen */
+    th, td { padding: 0.55rem 0.7rem; font-size: 0.88rem; }
+  }
+
+  @media print {
+    @page { size: A4; margin: 1.8cm 1.5cm; }
+    html, body { background: white !important; color: black !important; }
+    body::before { display: none !important; }
+    nav.top, aside.toc, .progress-bar, .scroll-hint, .cover-cta { display: none !important; }
+    .diag-controls, .org-toggle { display: none !important; }
+
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .fade-in { opacity: 1 !important; transform: none !important; }
+
+    .cover { min-height: auto; padding: 1.5rem 0 2rem; page-break-after: always; }
+    .cover h1 { font-size: 3rem; margin: 1.5rem 0 1rem; }
+    .cover .subtitle { font-size: 1.05rem; margin-bottom: 1.5rem; }
+    .cover-illu { margin: 1rem 0 1.5rem; }
+    .cover-illu svg { max-width: 480px; }
+
+    article.book { max-width: 100%; padding: 0; }
+    section.chapter, section.part-opener { page-break-before: always; padding: 1rem 0 1.5rem; scroll-margin-top: 0; }
+    section.part-opener { margin-top: 0; border-top: none; padding-top: 2rem; }
+
+    blockquote, .callout-acc, .ribbon, .viz, .diagnostic, .flip-viz, .contrast-viz, .rev-chart, .orgchart, .anti-card, table { page-break-inside: avoid; }
+    h1, h2, h2.chapter-title, h3, h4 { page-break-after: avoid; }
+
+    .viz, .diagnostic, .orgchart, .flip-viz, .contrast-viz, .rev-chart { margin: 1rem 0 !important; padding: 1.2rem !important; }
+    blockquote { margin: 1.2rem 0 !important; }
+    .callout-acc, .ribbon { margin: 1rem 0 !important; }
+
+    article.book p { font-size: 10.5pt; line-height: 1.45; }
+    article.book li { font-size: 10.5pt; line-height: 1.45; }
+    blockquote { font-size: 11pt; line-height: 1.35; }
+
+    footer.book-footer { background: white !important; color: black !important; padding: 2rem 1rem !important; page-break-before: always; border: none; }
+    footer.book-footer .finis { color: var(--c-muted) !important; }
+    footer.book-footer .meta { color: var(--c-muted) !important; }
+    footer.book-footer .top-link { display: none !important; }
+    footer.book-footer .colophon { color: rgba(0,0,0,0.7) !important; border-top: 1px solid rgba(0,0,0,0.15) !important; }
+    footer.book-footer .colophon .name { color: black !important; }
+    footer.book-footer .colophon .brand-mark g[fill="#f5f0e6"] { fill: #1a1a1a !important; }
+    footer.book-footer .colophon a { color: var(--c-yellow-deep) !important; }
+
+    a { color: inherit !important; text-decoration: none !important; }
+    article.book a { text-decoration: underline !important; text-decoration-color: var(--c-yellow-deep) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<nav class="top">
+  <div class="brand"><span class="dot"></span>Handboek voor startende AI-ondernemers · 2026</div>
+  <div class="nav-actions">
+    <button class="pdf-toggle" id="pdfToggle" aria-label="Download als PDF">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 2 V10"/>
+        <path d="M4.5 7 L8 10.5 L11.5 7"/>
+        <path d="M3 13 H13"/>
+      </svg>
+      PDF downloaden
+    </button>
+    <button class="toc-toggle" id="tocToggle">Hoofdstukken</button>
+  </div>
+</nav>
+
+<aside class="toc" id="toc">
+  <span class="label">Inhoudsopgave</span>
+
+  <div class="part">
+    <div class="part-title">Voorwerk</div>
+    <ol>
+      <li><a href="#preface" data-target="preface">Voorwoord</a></li>
+      <li><a href="#how-to-use" data-target="how-to-use">Hoe je dit handboek gebruikt</a></li>
+    </ol>
+  </div>
+
+  <div class="part">
+    <div class="part-title">I. Kies je slagveld</div>
+    <ol>
+      <li><a href="#ch1" data-target="ch1"><span class="ch-num">01</span>De klantkeuze</a></li>
+      <li><a href="#ch2" data-target="ch2"><span class="ch-num">02</span>De keuze van de sector</a></li>
+    </ol>
+  </div>
+
+  <div class="part">
+    <div class="part-title">II. Vind je wig</div>
+    <ol>
+      <li><a href="#ch3" data-target="ch3"><span class="ch-num">03</span>De keuze van de werkstroom</a></li>
+      <li><a href="#ch4" data-target="ch4"><span class="ch-num">04</span>De volgorde waarin je bouwt</a></li>
+    </ol>
+  </div>
+
+  <div class="part">
+    <div class="part-title">III. Bouw het oprichtersteam</div>
+    <ol>
+      <li><a href="#ch5" data-target="ch5"><span class="ch-num">05</span>De geloofwaardigheidsvraag</a></li>
+      <li><a href="#ch6" data-target="ch6"><span class="ch-num">06</span>De rollen die je nodig hebt</a></li>
+    </ol>
+  </div>
+
+  <div class="part">
+    <div class="part-title">IV. Verkopen om te winnen</div>
+    <ol>
+      <li><a href="#ch7" data-target="ch7"><span class="ch-num">07</span>Verkoop door de oprichter</a></li>
+      <li><a href="#ch8" data-target="ch8"><span class="ch-num">08</span>De AI-native veiligheidsomkering</a></li>
+      <li><a href="#ch9" data-target="ch9"><span class="ch-num">09</span>De pitch over de techstack-vernieuwing</a></li>
+      <li><a href="#ch10" data-target="ch10"><span class="ch-num">10</span>Snelheid als plaatsvervanger</a></li>
+    </ol>
+  </div>
+
+  <div class="part">
+    <div class="part-title">V. Naleving en opbouwen</div>
+    <ol>
+      <li><a href="#ch11" data-target="ch11"><span class="ch-num">11</span>De harness-laag &mdash; skill-bestuur</a></li>
+      <li><a href="#ch12" data-target="ch12"><span class="ch-num">12</span>De context-laag &mdash; jouw verdedigingslinie</a></li>
+    </ol>
+  </div>
+
+  <div class="part">
+    <div class="part-title">VI. Het lange spel</div>
+    <ol>
+      <li><a href="#ch13" data-target="ch13"><span class="ch-num">13</span>Omzet per medewerker</a></li>
+      <li><a href="#ch14" data-target="ch14"><span class="ch-num">14</span>De toekomstige vorm van het bedrijf</a></li>
+    </ol>
+  </div>
+
+  <div class="part">
+    <div class="part-title">Bijlagen</div>
+    <ol>
+      <li><a href="#app-a" data-target="app-a">A · Antipatronen</a></li>
+      <li><a href="#app-b" data-target="app-b">B · Bronnenkaart van de wiki</a></li>
+      <li><a href="#app-c" data-target="app-c">C · Verder lezen</a></li>
+    </ol>
+  </div>
+</aside>
+
+<header class="cover">
+  <div class="cover-publisher">
+    <svg class="brand-mark" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Business Data Solutions">
+      <g fill="#1a1a1a">
+        <polygon points="9,29 11,10 17,10 19,29"/>
+        <polygon points="8,8.5 20,8.5 19,10 9,10"/>
+        <rect x="11" y="5" width="6" height="3.5"/>
+        <path d="M10.5 5 Q10.5 1.5 14 1.5 Q17.5 1.5 17.5 5 Z"/>
+        <rect x="13.5" y="0" width="1" height="1.8"/>
+      </g>
+      <rect x="13" y="6" width="2" height="2" fill="#d4db3e"/>
+      <g stroke="#d4db3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M21 4 L26 7 L21 10"/>
+        <path d="M26 4 L31 7 L26 10"/>
+      </g>
+    </svg>
+    <span class="brand-name">Business Data Solutions</span>
+    <span class="brand-sep">·</span>
+    <span class="brand-line">Een uitgave voor mkb-oprichters</span>
+  </div>
+
+  <div class="cover-meta">
+    <span><b>Handboek</b> · 14 hoofdstukken</span>
+    <span><b>Lezerspubliek</b> · oprichters van AI-native verticale aanbieders</span>
+    <span><b>Samengesteld</b> · 22 mei 2026</span>
+  </div>
+
+  <h1>Handboek voor<br/>startende <em>AI-ondernemers</em></h1>
+
+  <p class="subtitle">Een AI-native verticale applicatie — hoe je je slagveld kiest, je wig vindt, je team opbouwt, verkoopt om te winnen, veilig opschaalt en het lange spel speelt.</p>
+
+  <div class="cover-illu fade-in">
+    <svg viewBox="0 0 640 240" class="sketch" xmlns="http://www.w3.org/2000/svg">
+      <text x="90" y="30" class="tag" text-anchor="middle">I. battlefield</text>
+      <path d="M50 115 L70 80 L88 115 Z"/>
+      <path d="M78 115 L100 60 L122 115 Z" class="fill-yellow"/>
+      <path d="M112 115 L130 85 L150 115 Z"/>
+      <line x1="45" y1="115" x2="155" y2="115"/>
+
+      <text x="230" y="30" class="tag" text-anchor="middle">II. wedge</text>
+      <polygon points="205,55 205,105 265,80" class="fill-yellow"/>
+      <line x1="265" y1="75" x2="278" y2="68"/>
+      <line x1="265" y1="85" x2="278" y2="92"/>
+
+      <text x="370" y="30" class="tag" text-anchor="middle">III. team</text>
+      <circle cx="345" cy="78" r="11" class="fill-yellow"/>
+      <circle cx="370" cy="78" r="11" class="fill-yellow"/>
+      <circle cx="395" cy="78" r="11" class="fill-yellow"/>
+      <path d="M330 100 Q370 113 410 100"/>
+
+      <text x="510" y="30" class="tag" text-anchor="middle">IV. sell</text>
+      <path d="M465 108 Q490 95 510 80 T555 50"/>
+      <circle cx="555" cy="50" r="4" class="fill-ink"/>
+
+      <line x1="30" y1="128" x2="610" y2="128" class="dashed" style="stroke-opacity:0.4"/>
+
+      <text x="200" y="215" class="tag" text-anchor="middle">v. compliance</text>
+      <path d="M180 150 L220 150 L220 170 Q220 188 200 195 Q180 188 180 170 Z" class="fill-yellow"/>
+      <path d="M189 171 L197 179 L213 162"/>
+
+      <text x="440" y="215" class="tag" text-anchor="middle">vi. long game</text>
+      <circle cx="395" cy="190" r="3" class="fill-ink"/>
+      <path d="M395 190 Q440 140 485 190"/>
+      <polygon points="482,193 492,197 488,187" class="fill-ink"/>
+    </svg>
+  </div>
+
+  <div class="cover-cta">
+    <a href="#preface" class="start">Begin met lezen</a>
+    <span class="time">~ 90 minuten lineair</span>
+  </div>
+
+  <div class="scroll-hint">Scrol &darr;</div>
+</header>
+
+<article class="book">
+
+  <section class="chapter fade-in" id="preface">
+    <div class="chapter-num">Voorwoord</div>
+    <h2 class="chapter-title">Voor bouwers in <em>sectoren die worden gedomineerd door gevestigde partijen</em></h2>
+
+    <p class="drop-cap-target">Dit handboek is voor oprichters die <strong>AI-native applicaties bouwen in sectoren die worden gedomineerd door gevestigde partijen</strong> &mdash; boekhouding, recht, verzekeringen, zorgadministratie, technische dienstverlening, vastgoedbeheer, financiën &mdash; waar een traag bewegend gevestigd dienstverlenend kantoor of softwareleverancier tussen de technologie en de eindafnemer staat die werkelijk profiteert van wat jij maakt.</p>
+
+    <p>Het is niet voor oprichters die horizontale ontwikkelaarsinfrastructuur, foundation models, consumentenapplicaties of generieke productiviteits-SaaS bouwen. De patronen in die categorieën zijn anders.</p>
+
+    <p>Het handboek is opgebouwd rond een <strong>twaalfdelige lessenreeks</strong>, ontleend aan drie primaire oprichters van wie de wiki in 2026 diepgaand verslag heeft gedaan:</p>
+
+    <ul>
+      <li><strong>Dominic Vitucci</strong>, oprichter/CEO van <strong>Onshore</strong> (YC W23) &mdash; AI voor vennootschapsbelasting en boekhouding, die de Big 4 verdringt. De oprichter in het corpus van de wiki die het dichtst bij het boekhoudkundige domein staat. <em>Begon met verkopen aan kantoren; deed dat twee jaar tevergeefs; schakelde over op rechtstreekse verkoop aan de belastingplichtige onderneming.</em></li>
+      <li><strong>John Glasgow</strong>, oprichter/CEO van <strong>Campfire</strong> (YC S23) &mdash; een AI-native ERP voor tech-bedrijven; vanaf het vierde kwartaal van 2024 haalt Campfire enterprise-klanten weg bij NetSuite. Het eerste ankerpunt van de wiki voor de <strong>AI-native veiligheidsomkering</strong> op het niveau van de inkoopkamer.</li>
+      <li><strong>Tushara Fernando</strong>, hoofd data en AI bij <strong>Man Group</strong> (een gereguleerd beleggingshuis met 200 miljard dollar onder beheer) &mdash; laat 750 van de 1.700 medewerkers met Claude Code werken, ondersteund door meer dan 100 gestuurde skills, waaronder door AI voorgestelde productie-handelssignalen. Het sterkste empirische ankerpunt in de wiki voor <strong>bestuur over skills op enterprise-schaal</strong>.</li>
+    </ul>
+
+    <p>Secundaire ankerpunten lopen door de hoofdstukken heen: <strong>Garry Tan en Diana Hu</strong> (Y Combinator) op het niveau van oprichtersdoctrine; <strong>Dalton Caldwell</strong> (Y Combinator) als de doctrinaire YC-partnerstem van vóór de AI-substraatverschuiving, over tar pits, pivots en klantvalidatie als startpunt; <strong>Harrison Chase</strong> (LangChain) over het drielaagse continu-leermodel van de leverancier-CEO; <strong>Max Schoening</strong> (Notion) over handelingsvermogen als de duurzame vaardigheid in het AI-tijdperk; <strong>James Ivers en Mario Benitez</strong> (Software Engineering Institute, Carnegie Mellon University) als de stem van het institutionele onderzoekscentrum over <em>engineering-discipline die standhoudt</em> onder AI-volume; <strong>Chad Jones</strong> (Stanford GSB) over de macro-economische theorie van de zwakke schakels; <strong>Adam Bender</strong> (Google) over de sociotechnische ecologie van ontwikkelaarsecosystemen; <strong>Brandon Hill</strong> (Vori), <strong>Will Bodewes</strong> (Phonely), <strong>Ayush Garg</strong> (AnswerThis), <strong>Siddhi Mittal</strong> (Yhangry), <strong>Mukund Jha</strong> (Emergent), <strong>Amjad Masad</strong> (Replit) en <strong>Apoorv Agrawal</strong> (Altimeter) voor sectorvoorbeelden en tegengeluiden.</p>
+
+    <p><strong>Wat dit handboek niet behandelt.</strong> De mechanismes van kapitaal ophalen (termsheets, SAFE-constructies, verwateringsberekeningen, omgang met de raad van bestuur). Arbeidsrecht, immigratie, vesting van aandelen. Conflictbemiddeling tussen oprichters en het uit elkaar gaan van medeoprichters. Crisisbeheersing. Het handboek gaat ervan uit dat je de standaard-playbooks voor die onderwerpen al hebt of weet te vinden.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Toepassingscallout &middot; boekhoudapplicatie</span>
+      <p>Door het hele handboek vertalen callouts zoals deze de algemene les van het hoofdstuk naar een concrete <em>als je een AI-native boekhoudapplicatie bouwt, dan&hellip;</em>-actie. Sla ze over als jouw sector anders is; de hoofdstuktekst blijft generiek.</p>
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="how-to-use">
+    <div class="chapter-num">Hoe te lezen</div>
+    <h2 class="chapter-title">Lineair <em>of</em> als naslagwerk</h2>
+
+    <p><strong>Lineair</strong> &mdash; lees van voor naar achter voor een volledige operationele doctrine. Ongeveer 90 minuten in leestempo.</p>
+
+    <p><strong>Naslagwerk</strong> &mdash; spring naar het hoofdstuk dat past bij de beslissing die je nu maakt. De zes delen en veertien hoofdstukken volgen ongeveer de kalender van de oprichter, in de volgorde waarin je de beslissingen tegenkomt:</p>
+
+    <div class="calendar-table">
+      <div class="row"><div class="col part-cell">I &mdash; Kies je slagveld</div><div class="col">Vóór de oprichting, of in de eerste 90 dagen.</div></div>
+      <div class="row"><div class="col part-cell">II &mdash; Vind je wig</div><div class="col">De eerste 6 maanden.</div></div>
+      <div class="row"><div class="col part-cell">III &mdash; Bouw het oprichtersteam</div><div class="col">De eerste 12 maanden; opnieuw beoordeeld bij elke financieringsronde.</div></div>
+      <div class="row"><div class="col part-cell">IV &mdash; Verkopen om te winnen</div><div class="col">$0 &rarr; $1M ARR.</div></div>
+      <div class="row"><div class="col part-cell">V &mdash; Naleving en opbouwen</div><div class="col">$1M &rarr; $10M ARR; of eerder als je verkoopt aan gereguleerde afnemers.</div></div>
+      <div class="row"><div class="col part-cell">VI &mdash; Het lange spel</div><div class="col">Bij elke kapitaalronde; wanneer de pitch scherper moet.</div></div>
+    </div>
+
+    <p><strong>Verdieping</strong> &mdash; elke claim in het handboek wordt onderbouwd door minstens één bron uit de wiki. <a href="#app-b">Bijlage B</a> koppelt elke geciteerde bron aan een samenvatting van één regel en een directe link.</p>
+  </section>
+
+  <section class="part-opener fade-in" id="part-1">
+    <span class="part-label">Deel I</span>
+    <h2 class="part-title">Kies je <em>slagveld</em></h2>
+    <p class="part-blurb">Waar je concurreert is de meest ingrijpende beslissing die je neemt. De meeste 'slechte startup-ideeën' zijn geen slechte ideeën; het zijn goede ideeën gericht op de verkeerde klant of het verkeerde subsegment van een sector.</p>
+    <div class="part-divider"></div>
+  </section>
+
+  <section class="chapter fade-in" id="ch1">
+    <div class="chapter-num">Hoofdstuk één</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De klantkeuze</span>
+      Verkoop niet aan kantoren &mdash; <em>concurreer met ze</em>
+    </h2>
+
+    <p class="drop-cap-target">De zwaarstwegende les in dit handboek is <strong>contra-intuïtief</strong>: wanneer een gevestigd dienstverlenend kantoor tussen de technologie en de eindafnemer staat, <strong>verkoop de technologie dan niet aan het kantoor. Concurreer met het kantoor door de uitkomst te verkopen aan de klant van het kantoor.</strong></p>
+
+    <p>Vitucci was <strong>twee jaar</strong> (2020&ndash;2022) bezig om AI-tooling te verkopen aan accountantskantoren uit de top 20 en top 50. Hij bereikte <em>"acht klanten, omzet halverwege de zes cijfers"</em> en liep toen tegen een muur. Twee structurele redenen:</p>
+
+    <ol>
+      <li><strong>Omkering in de waardeperceptie.</strong> <em>"Ze brengen uren expertise in rekening, en zodra dat uur minder waard wordt, heb je geen grond meer om op te staan wanneer je zegt 'betaal me alsjeblieft $1.000, $1.500, $2.000 per uur.'"</em> Elk hulpmiddel dat het werk automatiseert <em>holt het prijsmodel van de verkoper uit</em>. Het belang van het kantoor is om de adoptie te vertragen.</li>
+      <li><strong>Asymmetrische prikkels bij senior partners.</strong> <em>"Je moet als senior partner &mdash; een man die misschien nog drie tot vijf jaar in zijn carrière heeft &mdash; bergen geld steken in iets waar ik nooit de vruchten van zal plukken&hellip; oudere mannen van 63, 64 jaar zeggen 'ik ga over 24 maanden met pensioen, dit kan me niets schelen &mdash; ik ga de waarde hier over 5, 6, 10, 15 jaar toch niet meer zien.' En al snel zeggen de mensen die de beslissingen nemen, de senior partners: 'wat als we het gewoon niet doen?'"</em></li>
+    </ol>
+
+    <div class="viz">
+      <div class="viz-label">Diagram &middot; De twee routes</div>
+      <h4>Het ene pad is structureel drijfzand. Het andere is een structurele rugwind.</h4>
+      <svg viewBox="0 0 700 340" class="sketch">
+        <rect x="20" y="125" width="100" height="40" rx="3"/>
+        <text x="70" y="150" text-anchor="middle">AI-leverancier</text>
+        <text x="70" y="115" class="tag" text-anchor="middle">jij</text>
+
+        <text x="340" y="18" class="small" style="font-style:italic" text-anchor="middle">Route A: via het kantoor</text>
+        <text x="340" y="33" class="tag" text-anchor="middle">vertraagt je</text>
+        <rect x="280" y="40" width="120" height="55" rx="3" class="fill-rust"/>
+        <text x="340" y="63" text-anchor="middle">Gevestigd</text>
+        <text x="340" y="82" text-anchor="middle">kantoor</text>
+
+        <path d="M120 145 Q200 90 280 75" class="dashed" style="stroke:#b54a30"/>
+        <path d="M400 75 Q480 90 560 145" class="dashed" style="stroke:#b54a30"/>
+        <line x1="325" y1="52" x2="355" y2="82" style="stroke:#b54a30; stroke-width:2.5"/>
+        <line x1="355" y1="52" x2="325" y2="82" style="stroke:#b54a30; stroke-width:2.5"/>
+
+        <text x="340" y="200" class="tag" text-anchor="middle">autoriseert ai</text>
+        <rect x="280" y="210" width="120" height="55" rx="3" class="fill-moss"/>
+        <text x="340" y="233" text-anchor="middle">Eindafnemer</text>
+        <text x="340" y="252" class="small" text-anchor="middle">(CFO / mkb)</text>
+        <text x="340" y="283" class="small" style="font-style:italic" text-anchor="middle">Route B: rechtstreeks naar de uitkomstafnemer</text>
+
+        <path d="M120 155 Q300 200 560 155" class="thick" style="stroke:#4a7c3a"/>
+        <polygon points="555,150 565,155 555,160" class="fill-moss" style="stroke:#4a7c3a"/>
+
+        <rect x="560" y="125" width="120" height="40" rx="3" class="fill-yellow"/>
+        <text x="620" y="150" text-anchor="middle">Omzet</text>
+
+        <text x="20" y="325" class="tag">Vitucci 2020-22 = route a (2 jaar, vast)  &rarr;  2022+ = route b (yc, schaal)</text>
+      </svg>
+      <div class="viz-caption">De waarde van het kantoor als distributiekanaal wordt ruimschoots overschaduwd door zijn prikkel om je af te remmen.</div>
+    </div>
+
+    <p>Het patroon is <strong>structureel, geen kwestie van slecht management</strong>. Het wordt niet opgelost door <em>AI-strategiedagen</em> bij de Big 4 of persberichten over <em>één miljard dollar aan AI-investeringen</em> &mdash; Vitucci zag van dichtbij dat die zich vertalen in de aanschaf van <em>$3 à 4 miljoen aan Copilot-licenties</em> en verder niets: <em>"Wat doen jullie daarmee? Niets. Het is verschrikkelijk. Het werkt niet."</em></p>
+
+    <p>In de zomer van 2022 <strong>nam Vitucci afscheid van al zijn accountantskantoor-klanten</strong> en bouwde hij de software om voor de belastingplichtige onderneming zelf. Hij stuurde ongevraagde berichten naar 1.000 mensen op LinkedIn. <em>"Hé, ik ben Dominic. Ik kan jullie R&amp;D-belastingaftrek beter doen omdat ik AI gebruik."</em> Hij sloot een deal met een klant in Miami; tijdens de vlucht terug naar Chicago werd hij toegelaten tot YC.</p>
+
+    <p>Het spiegelbeeld aan de afnemerskant, van John Glasgow bij Campfire: zodra je omschakelt naar rechtstreekse verkoop, wordt de <strong>AI-native veiligheidsomkering</strong> (<a href="#ch8">Hoofdstuk 8</a>) je rugwind &mdash; raden van bestuur en CFO's geven nu expliciet toestemming om AI-native leveranciers te kopen in plaats van gevestigde partijen. De twee helften van de les versterken elkaar.</p>
+
+    <p>Een parallelle doctrine van <strong>Amjad Masad</strong> (Replit) uit hetzelfde wikicluster: <em>"De enige twee banen die overblijven, zijn bouwer en verkoper."</em> Als jouw klant een gevestigd kantoor is en je vindt aan de andere kant van de tafel geen bouwer of verkoper die werkelijk wil wat jij verkoopt, dan zit je in de verkeerde kamer.</p>
+
+    <p><strong>De stroomopwaartse YC-partnerdoctrine.</strong> De omschakeling van Vitucci is geen toevallige waarneming &mdash; het is de operationele invulling van een door YC-gecoachte aansporing die <strong>Dalton Caldwell</strong> (managing director bij Y Combinator, group partner met 21 batches achter zich) al jaren aan oprichters meegeeft: <em>"zoek heel bewust waar een aantoonbaar grote markt is met een gevestigde partij, gecombineerd met software die verschrikkelijk is."</em> Het canonieke uitgewerkte voorbeeld van Caldwell is de pivot van <strong>Zip naar inkoop</strong> (rond 19:20&ndash;22:00 van zijn aflevering van Lenny's Podcast in april 2024): Caldwell coachte Rujul Zaparde bij Zip door zes pivots heen voordat ze met precies deze aansporing op inkoop uitkwamen &mdash; <em>"kijk welke bedrijven beursgenoteerd zijn of in handen van private equity, groot zijn én door klanten gehaat worden."</em> Zip vond inkoop en bouwde daarop een bedrijf van een miljard dollar. Het structurele patroon dateert van vóór de AI-substraatverschuiving; wat die verschuiving toevoegt, is het mechanisme van de wig (<a href="#ch3">Hoofdstuk 3</a>) en de dekking vanuit het inkoopnarratief die de <em>AI-native veiligheidsomkering</em> (<a href="#ch8">Hoofdstuk 8</a>) levert. Caldwell benoemde het patroon; Vitucci, Glasgow, Hill, Dinakaran en de oprichters van Letter AI vormen het cohort van het AI-tijdperk dat het in verschillende sectoren tot uitvoering brengt.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Als je hebt gepitcht aan de Big 4 of top-20-kantoren: <strong>stop deze week</strong>. Identificeer <em>de belastingplichtige onderneming of de mkb-scale-up</em> die dat kantoor nu bedient. De eerste klant die je benadert is een bedrijf met 100&ndash;500 medewerkers, met een CFO die honderdduizenden dollars per jaar betaalt aan een kantoor dat een werkstroom levert die jij kunt automatiseren. Voer het gesprek met die CFO, niet met de audit-partner van het kantoor. (Zie <a href="#ch7">Hoofdstuk 7</a> voor hoe je dat eerste verkoopgesprek voert.)</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Maak een lijst van 20 kandidaat-klanten. Noteer per klant (a) wat ze nu betalen aan het gevestigde kantoor, (b) welke specifieke persoon de cheque tekent, (c) welke specifieke werkstroom je vervangt. Als je (a), (b) en (c) niet kunt invullen voor ten minste 5 van de 20, heb je je echte klant nog niet geïdentificeerd.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We verkopen aan kantoren, want zij hebben de klantrelaties en zijn ons distributiekanaal."</em> Vitucci verloor precies twee jaar aan deze theorie. De waarde van het kantoor als distributiekanaal wordt ruimschoots overschaduwd door zijn prikkel om je af te remmen. (Zie <a href="#app-a">Bijlage A</a>.)
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch2">
+    <div class="chapter-num">Hoofdstuk twee</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De keuze van de sector</span>
+      Aansprakelijkheidspremie <em>plus</em> volwassenheid van het factureringsmodel voorspellen de snelheid
+    </h2>
+
+    <p class="drop-cap-target">Niet elke door gevestigde partijen gedomineerde sector is even goed te bewerken. Vitucci biedt een heldere diagnose op drie variabelen voor de vraag <em>waarom Harvey en Lora de juridische sector kraakten, maar boekhouden lastiger is</em>:</p>
+
+    <ol>
+      <li><strong>Aansprakelijkheidspremie.</strong> <em>"Fouten van advocaten leiden tot gevangenisstraf of grote boetes; die van accountants meestal alleen tot inefficiëntie."</em> De gepercipieerde premie op menselijk oordeel is duurzamer in sectoren met hoge aansprakelijkheid &mdash; wat als een hindernis voor AI-adoptie klinkt, maar in werkelijkheid juist een <em>rugwind</em> is: zodra de advocaat-klant concludeert dat AI factureerbare uren bespaart zonder de aansprakelijkheid te veranderen, adopteert hij. Zodra de boekhoud-klant concludeert dat AI factureerbare uren bespaart maar ook de prijszettingsmacht ondermijnt, verzet hij zich.</li>
+      <li><strong>Vooruitstrevendheid van de sector.</strong> <em>"Advocaten zijn vooruitdenkend. Dat is misschien de meest controversiële stelling."</em> Culturele openheid voor nieuwe tooling varieert enorm per sector. Bouw, boekhouding en zorgadministratie adopteren langzaam; recht, fintech en creatieve dienstverlening adopteren sneller.</li>
+      <li><strong>Volwassenheid van projectmatige facturering.</strong> De juridische sector beweegt al meer dan tien jaar richting projectprijzen. De boekhoudsector factureert nog altijd per uur. <em>"Zodra je per project factureert, ontstaat er prijsconcurrentie en hebben mensen veel meer reden om hun kosten te verlagen."</em> Subsegmenten die al van urenregistratie zijn afgestapt &mdash; <em>R&amp;D-aftrek tegen vast tarief, boekhouding tegen vast tarief, SaaS-omzetverwerking tegen vast tarief</em> &mdash; adopteren AI 5 à 10 keer sneller dan de op uren gefactureerde segmenten in dezelfde sector.</li>
+    </ol>
+
+    <div class="diagnostic" id="diagnostic">
+      <h4>Geef een kandidaatsector een score</h4>
+      <p class="diag-sub">Sleep elke schuifregelaar tussen 0 en 3. Een totaal onder de 5 is vandaag structureel ongunstig voor AI-native leveranciers.</p>
+      <div class="axes">
+        <div class="diag-controls">
+          <div class="row">
+            <label><span class="axis-name">Aansprakelijkheidspremie</span><span id="vLib">2</span></label>
+            <input type="range" id="rLib" min="0" max="3" step="1" value="2"/>
+            <div class="scale-tags"><span>laag</span><span>gemiddeld</span><span>hoog</span></div>
+          </div>
+          <div class="row">
+            <label><span class="axis-name">Vooruitstrevende cultuur</span><span id="vFwd">1</span></label>
+            <input type="range" id="rFwd" min="0" max="3" step="1" value="1"/>
+            <div class="scale-tags"><span>terughoudend</span><span>open</span><span>gretig</span></div>
+          </div>
+          <div class="row">
+            <label><span class="axis-name">Volwassenheid projectfacturering</span><span id="vBil">1</span></label>
+            <input type="range" id="rBil" min="0" max="3" step="1" value="1"/>
+            <div class="scale-tags"><span>uurtarief</span><span>gemengd</span><span>vast tarief</span></div>
+          </div>
+        </div>
+        <div class="diag-readout maybe" id="diagReadout">
+          <div><span class="score" id="diagScore">4</span><span class="out-of"> / 9</span></div>
+          <div class="verdict" id="diagVerdict">Twijfelgeval &mdash; spreek 5 afnemers</div>
+        </div>
+      </div>
+    </div>
+
+    <p>Het theoretische mechanisme achter deze empirische observaties is <strong>het zwakke-schakelsmodel van Chad Jones</strong> (Stanford GSB, mei 2026): banen zijn bundels van taken; AI automatiseert eerst de gecodificeerde taken; de stilzwijgende taken worden de nieuwe zwakke schakels en vangen alle opbrengsten af. <em>"Geoff Hinton zei in 2016: 'We moeten stoppen met het opleiden van radiologen.' We hebben in 2026 meer radiologen dan in 2016, en ze worden beter betaald."</em> Hetzelfde mechanisme geldt op <em>sector</em>-niveau: AI elimineert de sector niet; AI elimineert de <em>op junior-uren gefactureerde taken</em> binnen de sector en herconcentreert de waarde rond de taken die AI niet kan.</p>
+
+    <p><strong>De diagnose, toegepast:</strong> rangschik je kandidaatsectoren op de drie assen hierboven. Kies het <strong>subsegment met de hoogste fit</strong> &mdash; meestal een projectmatig gefactureerde niche binnen een verder op uren gefactureerde sector, waar de afnemer al accepteert dat prijsconcurrentie normaal is. Dat is waar de adoptiesnelheid je beloont voor je voorsprong.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Binnen de boekhouding zijn de subsegmenten met de hoogste snelheid in 2026: <strong>R&amp;D-belastingaftrek</strong> (projectmatig, vast tarief, gedreven door nicheëxpertise &mdash; de wig van Vitucci), <strong>boekhouding tegen vast tarief voor tech-bedrijven</strong> (het aangrenzende terrein van Glasgow), <strong>SaaS-omzetverwerking</strong> (technisch complex, audit-relevant, steeds vaker projectmatig), <strong>transfer pricing</strong> (hoge aansprakelijkheid, steeds vaker projectmatig). De subsegmenten met de laagste snelheid: algemene audit (nog steeds uurtarief, hoge aansprakelijkheid, partnerschapseconomie), forensische accountancy (uurtarief, afhankelijk van getuige-deskundigen), belastingen voor vermogende particulieren (relatie-gedreven). Begin waar de snelheid zit.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Geef voor elke kandidaatsector een score van 0&ndash;3 op elk van de drie assen (gebruik de diagnose hierboven). Maximumscore 9; negeer alles wat 4 of lager scoort. Spreek voor je shortlist 5 afnemers per sector voordat je je vastlegt.
+    </div>
+
+    <div class="ribbon note">
+      <strong>Kanttekening &mdash; pas op voor tar-pit-sectoren.</strong> De sectordiagnose hierboven vertelt je wat je moet <em>kiezen</em>. Caldwells kernconcept van het <strong>tar-pit-idee</strong> vertelt je wat je moet <em>vermijden</em> &mdash; en dat is moeilijker te herkennen, want een tar pit presenteert zich per definitie als een goed idee. <em>"Per definitie is iets pas een tar pit als het er niet op lijkt. Het vreemde aan wat wij een tar-pit-idee noemen, is dat veel mensen op datzelfde idee komen, dat het op een onopgelost probleem lijkt en dat je er veel positieve feedback voor krijgt. En je hebt een hele goede reeks argumenten dat het een prima startupidee is &mdash; en dat is iets anders dan een slecht startupidee. Onderdeel van een echte tar pit is dat je goede initiële validatie kunt krijgen."</em> Het canonieke consumentenvoorbeeld is dat van <em>apps voor het afspreken met vrienden</em> (<em>"die startup wordt al sinds de jaren '90 opgezet"</em>). De B2B-parallellen op het niveau van de sectorkeuze: <strong>"aan kantoren verkopen"</strong> (Vitucci's tweejarige tar pit; <a href="#ch1">Hoofdstuk 1</a>) en <strong>"we worden de AI-native CRM / ERP / [categorie]"</strong> (het antipatroon waarin de categorie als wig wordt voorgesteld uit <a href="#ch3">Hoofdstuk 3</a> &mdash; sectoren die zich als wig verkleden). Tar pits zakken niet voor de voor de hand liggende tests; ze zakken voor de retentietest. Als je kandidaatsector enthousiaste eerste afnemerreacties oplevert maar je geen retentiesignaal in de tweede maand kunt aanwijzen bij minstens 3 van je 5 afnemersgesprekken, behandel de validatie dan als positief-maar-onvoldoende en draai de driepuntsdiagnose opnieuw voordat je je vastlegt.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"Grote markt = goede markt."</em> Totale aanspreekbare marktomvang is het verkeerde primaire filter bij de keuze van de sector; <em>adoptiesnelheid</em> is het juiste primaire filter. Een markt van 10 miljard dollar die in 24 maanden adopteert verslaat een markt van 200 miljard dollar die er 8 jaar over doet.
+    </div>
+  </section>
+
+  <section class="part-opener fade-in" id="part-2">
+    <span class="part-label">Deel II</span>
+    <h2 class="part-title">Vind je <em>wig</em></h2>
+    <p class="part-blurb">Zodra je weet waar je concurreert, is de volgende vraag wat je het eerst bouwt. Het antwoord is bijna nooit het volledige product. Het antwoord is de ene werkstroom die de migratie van de klant in gang zet.</p>
+    <div class="part-divider"></div>
+  </section>
+
+  <section class="chapter fade-in" id="ch3">
+    <div class="chapter-num">Hoofdstuk drie</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De keuze van de werkstroom</span>
+      Kies <em>één</em> werkstroom als wig
+    </h2>
+
+    <p class="drop-cap-target">De klassieke verdediging van gevestigde enterprise-software is <em>"je kunt deze categorie pas verstoren als je volledige functionaliteit biedt."</em> Zowel Glasgow (Campfire) als Vitucci (Onshore) weerleggen dat empirisch. De juiste wig is <strong>de ene werkstroom die de afnemer toestemming geeft om over te stappen.</strong></p>
+
+    <p>De formulering van Glasgow (rond 5:41 in de Campfire-fireside):</p>
+
+    <blockquote>Binnen onze startmarkt van tech-bedrijven gebruiken ze eigenlijk niet veel van NetSuite &mdash; het grootste deel van NetSuite gebruiken ze niet. Dus we hebben ons heel smal gericht op een bepaald segment: tech-bedrijven die over QuickBooks heen waren gegroeid en iets krachtigers of volwassener nodig hadden voor specifieke functionaliteit&hellip; goedkeuringsworkflows klinken absoluut niet sexy, maar het is een belangrijke reden waarom mensen ze nodig hebben voor de audit, en QuickBooks heeft dat niet. Boekhouding voor meerdere entiteiten waarbij je een dochteronderneming hebt &mdash; vooral in de AI-native wereld gaan mensen heel snel naar meerdere entiteiten&hellip; we richten ons smal op die paar functies, en dan zeggen mensen 'we hebben eigenlijk niet veel', maar binnen negen maanden haalden we mensen weg bij NetSuite, omdat we ons smal hadden gericht op het beste zijn voor een heel specifiek klantprofiel.</blockquote>
+
+    <p>De ondersteunende claim &mdash; <em>"tech-bedrijven gebruiken ongeveer 10% van NetSuite"</em> &mdash; reduceert de verdediging op grond van volledige functionaliteit tot de omvang van het daadwerkelijk gebruikte deel.</p>
+
+    <p>Uitgewerkte voorbeelden van wiggen met één werkstroom uit de wiki:</p>
+
+    <ul>
+      <li><strong>Vitucci / Onshore</strong>: R&amp;D-belastingaftrek.</li>
+      <li><strong>Glasgow / Campfire</strong>: goedkeuringsworkflows + boekhouding voor meerdere entiteiten + audit en controles + omzetverwerking.</li>
+      <li><strong>Hill / Vori</strong>: mobiele applicatie voor voorraadbestelling voor zelfstandige supermarkten ('een paar weken' om te bouwen; één winkel binnengewandeld tijdens YC; honderden winkels in jaar één).</li>
+      <li><strong>Bodewes / Phonely</strong>: AI-receptionist voor kleine bedrijven &rarr; optimalisatie van enterprise-callcenters.</li>
+    </ul>
+
+    <p>Diana Hu (Y Combinator, Stanford CS153) benoemt het algemene patroon als de <strong>wig van de voorwaarts gestationeerde engineer</strong>: <em>"Pak een pijnlijke werkstroom, ga er diep in bij de klanten, en je wordt in feite de voorwaarts gestationeerde engineer."</em> Het recept: <em>"De oprichters van Salient of Happy Robot kwamen niet uit finance of logistiek &mdash; ze zaten niet in de training set. De manier waarop ze experts werden, is dat ze daadwerkelijk meeliepen of een baan namen en alles tot in de diepte leerden wat erbij kwam kijken."</em></p>
+
+    <div class="viz">
+      <div class="viz-label">Schema &middot; Drie eigenschappen van een goede wig</div>
+      <h4>Als één van de drie ontbreekt, landt de wig niet.</h4>
+      <svg viewBox="0 0 700 360" class="sketch">
+        <!-- Three overlapping circles in classic Venn arrangement.
+             For r=95 and these centers, the true 3-way intersection is the
+             curvilinear triangle with vertices (335,126), (365,126), (350,181). -->
+        <circle cx="270" cy="130" r="95"/>
+        <circle cx="430" cy="130" r="95"/>
+        <circle cx="350" cy="220" r="95"/>
+
+        <!-- Wedge zone: centred on the centroid of the 3-way intersection (350, 144).
+             rx≤13, ry≤17 keeps all four ellipse extremes inside all three circles
+             (intersection is widest near y=144 at ~27px across). -->
+        <ellipse cx="350" cy="145" rx="13" ry="17" class="fill-yellow"/>
+        <text x="350" y="149" text-anchor="middle" class="small">wig</text>
+
+        <!-- Acute pain — centred in C1's upper-left crescent (C1-only zone) -->
+        <text x="225" y="85" text-anchor="middle">acute</text>
+        <text x="225" y="104" text-anchor="middle">pijn</text>
+        <text x="225" y="125" text-anchor="middle" class="small">"X uur/maand"</text>
+
+        <!-- Named incumbent — centred in C2's upper-right crescent (C2-only zone) -->
+        <text x="475" y="85" text-anchor="middle">benoemde</text>
+        <text x="475" y="104" text-anchor="middle">gevestigde</text>
+        <text x="475" y="125" text-anchor="middle" class="small">"beter dan kantoor X"</text>
+
+        <!-- Data access — centred in C3's lower crescent (C3-only zone) -->
+        <text x="350" y="272" text-anchor="middle">datatoegang</text>
+        <text x="350" y="292" text-anchor="middle" class="small">klant kan verstrekken</text>
+
+        <!-- Caption — centred under the figure -->
+        <text x="350" y="345" text-anchor="middle" class="tag">alle drie = wig.  mis er één = dood bij aankomst.</text>
+      </svg>
+    </div>
+
+    <p><strong>De drie eigenschappen van een goede wig:</strong></p>
+
+    <ol>
+      <li>De <strong>pijn van de klant is acuut en kwantificeerbaar</strong>. <em>"Hoeveel uur per maand besteed je hieraan?"</em> moet binnen 5 seconden een concreet getal opleveren. Aarzelt de klant, dan is de pijn niet acuut genoeg.</li>
+      <li>De <strong>data zit op plekken waar de klant je toegang toe kan geven</strong>. Leeft de data alleen in de hoofden van het kantoor, of in een systeem dat de klant niet kan vrijgeven, dan is de wig dood bij aankomst.</li>
+      <li>Je kunt aantonen dat je het <em>"beter, sneller, betaalbaarder en met betere traceerbaarheid"</em> kunt doen ten opzichte van een <strong>met naam genoemde gevestigde praktijk</strong>. De vergelijking moet specifiek zijn en aantoonbaar in een demo van 30 minuten.</li>
+    </ol>
+
+    <p><strong>De stroomopwaartse methode om een wig te vinden.</strong> De drie eigenschappen vertellen je <em>wat een wig goed maakt</em>; <strong>Dalton Caldwell</strong> (YC) benoemt de <em>methode om er een te vinden</em>, dezelfde die hij oprichters al ruim vóór de AI-substraatverschuiving meegaf: <em>"Mijn tactisch advies is: begin met klantvalidatie in plaats van een PowerPoint-deck bouwen of geld proberen op te halen. Als je mensen vindt die echt enthousiast zijn en je krijgt klanten in de rij, dan is dat een geweldig groen licht dat het tijd is om een startup te beginnen. Bouw het pas zodra je enige overtuiging hebt: ah, ik geloof dat ik een klant zou hebben. Tenminste één."</em> De oprichter-ankerpunten van dit handboek uit 2026 (Vitucci's 1.000 koude DM's; Dinakarans discipline van LinkedIn-contacten ontsluiten plus warme intro's) zijn de operationele invulling, na de AI-golf, van Caldwells regel: eerst klantvalidatie, daarna pas bouwen. Het substraat veranderde; de methode niet.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Kandidaatwiggen die de drie-eigenschappentest doorstaan voor de boekhouding: <strong>R&amp;D-belastingaftrek</strong> (acute pijn &mdash; elke CFO kent de bestede tijd; data in git, Jira en de salarisadministratie; heldere vergelijking met de gevestigde partij). <strong>Sales-tax-aansluiting en -aangiften</strong> voor SaaS in meerdere staten (acute pijn; data in Stripe en ERP; heldere vergelijking). <strong>Omzetverwerking voor verbruiksgefactureerde SaaS</strong> (acute pijn; data in het facturatiesysteem; ASC-606-conforme vergelijking). Minder evident geschikt als wig: <em>"een betere Xero"</em> (geen specifieke acute pijn). <em>"AI-aangedreven audit"</em> (data niet vrij te geven in een vroege verkoopfase; vergelijking met de gevestigde partij blijft vaag).</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Schrijf je kandidaatwig op één regel op. Noteer vervolgens (a) de specifieke werkstroom, (b) de voor de klant kwantificeerbare pijn, (c) het pad naar de data, (d) de gevestigde praktijk die je vervangt. Als je die vier regels niet binnen 5 minuten kunt schrijven, is je wig te vaag.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"Wij worden de AI-native [X]"</em> &mdash; waarbij [X] de categorienaam is. De categorienaam is te groot om als wig te dienen. <em>"Wij worden de AI-native ERP"</em> is een wig als en alleen als je de specifieke <em>eerste</em> functie kunt benoemen die de migratie in gang zet (Glasgow: goedkeuringsworkflows).
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch4">
+    <div class="chapter-num">Hoofdstuk vier</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De volgorde waarin je bouwt</span>
+      Van wig naar platform <em>zonder de focus te verliezen</em>
+    </h2>
+
+    <p class="drop-cap-target">Zodra je wig is geland, is de volgende vraag: <em>wat bouw je als tweede?</em> De wiki bevat twee empirische antwoorden, beide verankerd in oprichters van <strong>compound startups</strong> die over 3&ndash;5 jaar stapels van hardware, software en diensten bouwden.</p>
+
+    <p><strong>De uitbreidingsboog van Glasgow</strong> (Campfire): goedkeuringsworkflows &rarr; boekhouding voor meerdere entiteiten &rarr; audit en controles &rarr; omzetverwerking &rarr; uiteindelijk het volledige grootboek. De volgorde wordt bepaald door <em>welke aangrenzende werkstroom de bestaande klant je in trekt</em>. <em>"Het verkoopteam dat engineering aanstuurt"</em> (<a href="#ch7">Hoofdstuk 7</a>) is de manier waarop deze discipline verankerd blijft in echte vraag.</p>
+
+    <p><strong>De uitbreidingsboog van Hill</strong> (Vori): mobiele voorraadbestel-app &rarr; kassasysteem &rarr; betalingsverwerking &rarr; elektronische schaplabels &rarr; drie productieagenten (voorraad, prijsstelling, gepersonaliseerde aanbiedingen) &rarr; volledig besturingssysteem voor de winkel. De hefboom: een prompt van Michael Seibel vroeg bij YC &mdash; <em>"Waar in de supermarkt geeft je klant het meeste geld uit aan technologie? Aan het kassasysteem, aan de betalingsverwerking, aan het besturingssysteem van de winkel. Dus bouw dat."</em> De volgorde wordt bepaald door <em>de omvang van het budget dat je verdringt</em>.</p>
+
+    <p><strong>De uitbreidingsboog van Vitucci</strong> (Onshore): R&amp;D-belastingaftrek &rarr; bedrijfsboekhouding &rarr; audit. De volgorde wordt bepaald door <em>de vertrouwensladder van de klant</em> &mdash; elke volgende dienst is er een die de klant je aan het begin nog niet zou hebben toevertrouwd, maar nu wel.</p>
+
+    <p>De drie volgorden zien er verschillend uit, maar delen <strong>één discipline</strong>: <strong>de klant vertelt je wat je vervolgens bouwt, niet je roadmap-document.</strong> Jouw taak is om (a) verkoop door de oprichter overeind te houden (<a href="#ch7">Hoofdstuk 7</a>), zodat je het verzoek werkelijk hoort, (b) snel genoeg te bouwen dat de klant gelooft dat je oplevert vóór hij het nodig heeft (<a href="#ch10">Hoofdstuk 10</a>) en (c) te weigeren dingen te bouwen waar de klant niet om heeft gevraagd, ook al klinken ze strategisch voor de hand liggend.</p>
+
+    <p>Er zit een productieve spanning in de wiki op dit punt. <strong>Garry Tan</strong> bij Stanford CS153 (mei 2026) keert het klassieke <em>'probeer niet alles tegelijk aan te pakken'</em>-advies expliciet om: <em>"Mijn antwoord daarop, op basis van mijn ervaring met coding-agenten, is: laten we juist wél alles tegelijk aanpakken. Je kunt het werk doen van zo'n 500 tot 1.000 mensen. En als dat klopt, dan zijn alle verwachtingen die we in de maatschappij hebben over wat een oprichter kan doen, wat een bedrijf kan doen, wat een klein team kan doen &mdash; die kloppen duizend keer niet."</em></p>
+
+    <p>Vitucci beweert het tegenovergestelde op het niveau van de go-to-market: <em>"Het idee om alles tegelijk te willen aanpakken is een enorme uitdaging. Het is voor ons bedrijf een ongelooflijk voordeel geweest om vroeg al heel goed te zijn in één ding."</em></p>
+
+    <blockquote>Beide hebben gelijk op verschillende operationele hoogten. Engineering-capaciteit kan alles tegelijk aanpakken; vertrouwen bij inkoop niet. Bouw als Tan; verkoop als Vitucci.</blockquote>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Een typische uitbreidingsboog voor een boekhoudapplicatie: <strong>Jaar 1</strong> &mdash; wig (bijvoorbeeld R&amp;D-belastingaftrek) plus de <strong>minimaal omringende werkstromen die de afnemer niet kan missen</strong> (data-inname uit git, Jira en salarisadministratie; outputformaat dat het bestaande auditkantoor van de afnemer accepteert; een audit-trail-document). <strong>Jaar 2</strong> &mdash; aangrenzende nalevingswerkstroom die dezelfde data-inname gebruikt (bijvoorbeeld varianten op staatsniveau van R&amp;D-aftrek; arbeidsplaatsenaftrek; cost segregation). <strong>Jaar 3</strong> &mdash; de aangrenzende vennootschapsbelasting die dezelfde audit-trail-discipline gebruikt. De volgorde is <em>welke aangrenzende werkstroom dezelfde datapijplijn gebruikt die je al hebt gebouwd</em>.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Houd een lijst bij van <em>aangrenzende werkstromen waar je klanten in de afgelopen 60 dagen om hebben gevraagd</em>. Sorteer op frequentie van het verzoek. Het bovenste item is je volgende bouwklus, ongeacht wat het roadmap-document zegt.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"Wij bouwen het besturingssysteem voor [X]."</em> Deze formulering is een achteraf passend gemaakte roadmap, geen bouwvolgorde. De besturingssysteem-formulering hoort in het pitchdeck na jaar 3, niet in de backlog van jaar 1.
+    </div>
+  </section>
+
+  <section class="part-opener fade-in" id="part-3">
+    <span class="part-label">Deel III</span>
+    <h2 class="part-title">Bouw het <em>oprichtersteam</em></h2>
+    <p class="part-blurb">Met wie je begint bepaalt welke gesprekken je geloofwaardig kunt voeren, en dus welke deuren opengaan. In sectoren die door gevestigde partijen worden gedomineerd, is geloofwaardigheid je munteenheid.</p>
+    <div class="part-divider"></div>
+  </section>
+
+  <section class="chapter fade-in" id="ch5">
+    <div class="chapter-num">Hoofdstuk vijf</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De geloofwaardigheidsvraag</span>
+      Senior medeoprichter als <em>krachtversterker bij inkoop</em>
+    </h2>
+
+    <p class="drop-cap-target">De strategisch zwaarstwegende beslissing van Vitucci was om zijn vroegere baas-van-de-baas-van-zijn-baas bij Grant Thornton aan te nemen &mdash; <strong>Mark</strong>, een senior partner bijna met pensioen &mdash; als medeoprichter. <em>"Een senior partner van Grant Thornton stapt over en zet zijn naam onder deze innovatie; dat wordt verteerbaarder dan een junior die hieraan begint &mdash; en het brengt een schat aan expertise en kennis met zich mee."</em></p>
+
+    <p>Vitucci's latere reflectie op de vraag of Mark dragend was: <em>"Het is mogelijk dat we het zonder Mark ook hadden gered &mdash; Lora is daar een goed voorbeeld van. Ik denk dat het aanzienlijk moeilijker was geweest."</em> Het eerlijke antwoord is: <em>we kunnen het tegenovergestelde scenario niet uitvoeren, maar het eerste instinct van elke boekhoud-afnemer is 'zijn dit serieuze mensen die mijn wereld begrijpen', en Mark beantwoordde die vraag preventief.</em></p>
+
+    <p>De wiki bevat een interessante variant op dezelfde les: <strong>Ayush Garg</strong> bij AnswerThis (YC, voorjaar 2026) bereikte hetzelfde effect op microschaal met een <em>niet-technische medeoprichter</em> (Ryan), die <strong>geloofwaardigheid vanuit het eigenaarschap van de werkstroom</strong> leverde in plaats van geloofwaardigheid vanuit branchestatus. Ryan was de dagelijkse gebruiker; hij schreef de updates van het <code>instructions.md</code>-bestand van de agent door in natuurlijke taal in het Slack-kanaal te schrijven; de agent paste vervolgens zijn eigen regels aan. De geloofwaardigheid die Ryan leverde, was: <em>"dit product wordt vanaf dag één gebruikt door een echte eigenaar van de werkstroom, niet alleen door een oprichter in een demo."</em></p>
+
+    <p>Een derde variant van <strong>John Glasgow</strong> (Campfire): Glasgow werd voor YC geïnterviewd door <strong>Andrew Tan</strong> (YC-partner, voormalig CTO bij PagerDuty). De afkomst van die geloofwaardigheid duikt op in de cap table &mdash; <em>"een seed-stage-leverancier met vier medewerkers die vanaf het vierde kwartaal van 2024 meer dan 100 klanten van NetSuite weghaalde"</em> vroeg om meer dan een slim pitchdeck. Geloofwaardigheid aan de kant van de investeerder is reëel en zichtbaar voor inkoopafnemers die referenties natrekken.</p>
+
+    <p><strong>De drie varianten van geloofwaardigheid:</strong></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Variant</th><th>Leverancier</th><th>Het beste wanneer&hellip;</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Branchestatus</strong></td><td>Voormalig senior partner / Big-4-directeur / voorzitter van een brancheorganisatie</td><td>Je verkoopt aan inkoopvoorzichtige enterprise-afnemers in gereguleerde sectoren</td></tr>
+          <tr><td><strong>Eigenaarschap van de werkstroom</strong></td><td>Dagelijkse gebruiker van de werkstroom / voormalig praktijkbeoefenaar op het niveau van het team van de afnemer</td><td>Je verkoopt aan mkb of midmarket waar de afnemer geloofwaardigheid van een gelijke wil, geen autoriteitsgeloofwaardigheid</td></tr>
+          <tr><td><strong>Vanuit de investeerder</strong></td><td>Top-accelerator / leadinvesteerder met sectorreputatie</td><td>Je verkoopt aan enterprise-afnemers die referenties bij investeerders natrekken</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Je hebt niet alle drie nodig. De meeste succesvolle oprichters in deze wiki hebben één sterke bron van geloofwaardigheid plus de afwezigheid van duidelijke alarmbellen op de andere twee.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>De aanwerving met de hoogste hefboom voor een boekhoudapplicatie in 2026 is een <strong>onlangs gepensioneerde Big-4- of top-20-partner</strong> die zich verveelt, professioneel rusteloos is, financieel onafhankelijk is en bereid is een rol als senior adviseur te vervullen tegen aandelen. Zo iemand opent inkoopdeuren die geen enkele ongevraagde benadering opent. Vind je die persoon niet in je netwerk, dan is een <strong>voormalig hoofd belastingen of hoofd finance bij een bedrijf met 500&ndash;5.000 medewerkers in jouw doelsegment</strong> het op een na beste &mdash; die persoon is de gelijke van de afnemer, wat inkoop-geloofwaardig is voor de variant <em>eigenaarschap van de werkstroom</em>.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Maak een lijst van 10 kandidaat-adviseurs of -medeoprichters. Noteer per persoon (a) welke variant van geloofwaardigheid hij of zij levert, (b) welke specifieke inkoopdeur opengaat, (c) welk pakket aan aandelen of adviseursrechten hem of haar zou binden. Voer het gesprek met de top drie binnen de komende 30 dagen.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We zijn twee technische medeoprichters en we leren de sector onderweg wel kennen."</em> Dat werkt in sommige categorieën, maar is extreem lastig in gereguleerde sectoren die door gevestigde partijen worden gedomineerd. De wiki kent nul succesvolle AI-startups in boekhouding, recht of zorg die geleid worden door twee technische medeoprichters zonder geloofwaardigheidsaanwerving uit de sector.
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch6">
+    <div class="chapter-num">Hoofdstuk zes</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De rollen die je nodig hebt</span>
+      <em>Vanaf dag één</em>
+    </h2>
+
+    <p class="drop-cap-target">Diana Hu (Y Combinator, college Stanford CS153, mei 2026) formuleert een <strong>organisatiestructuur met drie rollen</strong> voor AI-native bedrijven, die de eerdere 8 tot 12 rollen tot drie comprimeert:</p>
+
+    <ol>
+      <li><strong>IC (Individual Contributor, individuele uitvoerder)</strong> &mdash; <em>iedereen</em> levert op. Inclusief niet-technische medewerkers. De verkoper bouwt zijn eigen pijplijnautomatisering. De customer-success-medewerker bouwt zijn eigen onboardingflow. <em>"Iedereen in de organisatie is betrokken bij het verbeteren van de agent via feedback."</em></li>
+      <li><strong>DRI (Direct Responsible Individual, direct verantwoordelijke)</strong> &mdash; de conventie van Apple, toegepast op het niveau van uitkomsten. <em>"Dat is vaak de oprichter."</em> De DRI orkestreert de IC's rond een specifieke bedrijfsuitkomst (bijvoorbeeld <em>"we moeten de omzet voor het einde van de week verdrievoudigen"</em>).</li>
+      <li><strong>Het AI-oprichterstype</strong> &mdash; opereert <em>aan de rand van de tools</em>. Hu noemt Garry Tan als belichaming: <em>"Als je Garry hoort, belichaamt hij dit echt &mdash; je leeft aan de rand van de toekomst met alle tools om je bedrijf snel te laten draaien."</em> Het AI-oprichterstype is degene die nieuwe tooling als eerste probeert, de tooling het bedrijf in brengt en de werkafspraken van het team herschrijft naarmate nieuwe tooling beschikbaar komt.</li>
+    </ol>
+
+    <p>In een AI-native startup met minder dan tien mensen kunnen <strong>alle drie de rollen op het oprichtersteam zitten</strong>. Twee medeoprichters dekken IC en DRI; een van de twee is ook het AI-oprichterstype. De cruciale eigenschap is dat <strong>geen van de rollen de 'manager die niet oplevert' mag zijn.</strong></p>
+
+    <p>Max Schoening (Notion, mei 2026) levert de blik vanuit het praktijkniveau: <strong>handelingsvermogen, niet vaardigheden, scheidt de mensen die opbloeien van wie achterblijft.</strong></p>
+
+    <blockquote>Zelfs als je de vaardigheden binnen handbereik hebt omdat een model dat tegen AGI aan zit je nu helpt, draait het uiteindelijk om handelingsvermogen. Mensen met echt handelingsvermogen, die begrijpen dat de wereld om hen heen maakbaar is, zullen het geweldig doen. De mensen die vasthouden aan 'wat betekent het om PM te zijn, wat betekent het om designer te zijn, wat is mijn taak als engineer' &mdash; dat wordt veel lastiger.</blockquote>
+
+    <p>Twee Notion-vignetten die Schoening als uitgewerkte voorbeelden aanbiedt:</p>
+
+    <ul>
+      <li><strong>Brian Leven</strong> &mdash; een ontwerper bij Notion die <em>"de grens tussen engineering en design vervaagt, maar tegelijk waarschijnlijk onze nummer één recruiter is."</em> Vignet over handelingsvermogen: bijdragen aan organisatie-uitkomsten <em>buiten</em> de dagelijkse rol.</li>
+      <li><strong>Eric Lou</strong> &mdash; een PM bij Notion die Schoening vroeg <em>"als jij een startup zou beginnen, zou je mij dan aannemen?"</em>, te horen kreeg <em>"niet bij de eerste tien &mdash; ik heb geen productmanager nodig,"</em> en antwoordde: <em>"oh, oké &mdash; ik ga aan de vaardigheden werken zodat je me wel bij de eerste vijf zou aannemen."</em> Hij verschoof geleidelijk van PRD's naar Figma naar <em>"waarom moet ik in Figma werken &mdash; kan ik niet gewoon het prototype bouwen en je laten zien wat ik denk?"</em> De boog van <strong>een PM die via handelingsvermogen evolueert tot bouwer</strong>.</li>
+    </ul>
+
+    <p>Het negatieve geval: <strong>Siddhi Mittal</strong> bij Yhangry (mei 2026) over hoe <em>ontslaan</em> eruitziet wanneer een bestaand teamlid geen handelingsvermogen heeft: <em>"Ik ontsloeg mijn tech lead omdat ik besefte dat hij niet wist wat skills waren, en hij was het plafond in ons bedrijf. En binnen een week had ik onze nieuwe head of engineering aangenomen. In maart gaan we er echt vol voor. Ik moet mijn menselijke empathie waarschijnlijk wat sneller en wat harder uitschakelen."</em></p>
+
+    <p>Werf op <strong>handelingsvermogen boven diploma's en op tool-vaardigheid boven functietitel-fit.</strong> Een senior engineer die elke regel met de hand wil schrijven, is in 2026 een slechtere aanwerving dan een junior die in de afgelopen maand drie zijprojecten heeft opgeleverd met Claude Code.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Je oprichtersteam in de maanden 1 tot 12 zou moeten bestaan uit: (a) een oprichter die <em>dagelijks het IC-boekhoudwerk doet</em> &mdash; daadwerkelijk de boeken van de klant opent, de werkstroom uitvoert, het formulier indient; (b) een oprichter die het <em>AI-oprichterstype</em> is &mdash; elke modelrelease test, de skills schrijft, de werkafspraken van het team herschrijft naarmate Claude Code, Codex of Cursor evolueert; (c) een <em>senior adviseur</em> (<a href="#ch5">Hoofdstuk 5</a>) die deuren opent. Je eerste drie aanwervingen na de oprichters zijn <em>meer IC's die (a) kunnen doen</em> &mdash; bij voorkeur voormalige kantoor-associates die zijn vertrokken omdat ze wilden opleveren.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Geef je huidige team een score op de drie rollen. Als een van de drie ontbreekt of zwak is, is dat je meest urgente aanwerving. Heb je een 'manager die niet oplevert' in huis, dan heb je een probleem.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We nemen een Head of Sales / Head of Marketing / Head of People aan voordat we $1M ARR halen."</em> Glasgow waarschuwt hier expliciet tegen in <a href="#ch7">Hoofdstuk 7</a>. Werf IC's en DRI's; de hoofden-van-functie komen na product-market-fit.
+    </div>
+  </section>
+
+  <section class="part-opener fade-in" id="part-4">
+    <span class="part-label">Deel IV</span>
+    <h2 class="part-title">Verkopen om te <em>winnen</em></h2>
+    <p class="part-blurb">De vier hoofdstukken in dit deel zijn operationeel het meest concreet, omdat de beweging van $0 &rarr; $1M ARR de fase is waarin oprichters het vaakst falen.</p>
+    <div class="part-divider"></div>
+  </section>
+
+  <section class="chapter fade-in" id="ch7">
+    <div class="chapter-num">Hoofdstuk zeven</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">Verkoop door de oprichter</span>
+      Blijf in de oprichter-verkoopt-modus <em>tot $1M ARR</em>
+    </h2>
+
+    <p class="drop-cap-target">Het sterkste tegengeluid tegen de meest agressieve <em>agenten-overal</em>-vertellingen in de wiki komt van Glasgow (rond 14:05 in de Campfire-fireside):</p>
+
+    <blockquote>Ook in het AI-tijdperk raad ik oprichters echt aan om in de oprichter-verkoopt-modus te blijven. Het uitbesteden aan AI of aan een account executive voelt alsof je een professional binnenhaalt, of dat nu een agent of een mens is. Maar ik raad nog steeds aan om zo dicht mogelijk bij de klant en de prospect te blijven totdat je product-market-fit hebt. Ik zit in elk Slack-kanaal met elke klant. Ik probeer naar zoveel mogelijk verkoopgesprekken te luisteren om écht te horen wat er speelt, want dan ben jij de beste persoon in het bedrijf om daadwerkelijk verandering in gang te zetten &mdash; het verkoopteam dat engineering aanstuurt. Ik kwam uiteindelijk op de Series A &mdash; voor ons de klassieke miljoen in ARR &mdash; in mijn eentje als enige account executive.</blockquote>
+
+    <p>Twee dingen om je eigen te maken:</p>
+
+    <ol>
+      <li><strong>Besteed verkoop niet uit aan een AI of een account executive vóór $1M ARR.</strong> De opbrengst van verkoop is niet alleen omzet; het is de <strong>feedbacklus die engineering aanstuurt</strong>. Als de oprichter niet in elk verkoopgesprek en elk klant-Slackkanaal zit, breekt die feedbacklus.</li>
+      <li><strong>De verkoopbeweging is op zichzelf een ontdekkingsproces.</strong> Vitucci's eerste 1.000 ongevraagde berichten leerden hem welke argumenten werkten, welke functietitels converteerden en welke concurrenten ertoe deden. Hij liet die ontdekkingen niet door een account executive voor zich doen.</li>
+    </ol>
+
+    <p><strong>Het YC-partner-doctrinaire ankerpunt.</strong> Beide bovenstaande punten zijn stroomafwaartse uitvloeisels van een discipline die <strong>Dalton Caldwell</strong> al jaren bij YC coacht. Caldwells tactisch-advies-slot bij Lenny's Podcast (april 2024): <em>"Begin met klantvalidatie in plaats van een PowerPoint-deck bouwen of geld proberen op te halen. Als je mensen vindt die echt enthousiast zijn en je krijgt klanten in de rij, dan is dat een geweldig groen licht."</em> En over het sjabloon van de koude DM naar de echte klant: <em>"Krijg toestemming om met potentiële klanten te spreken en probeer iets te voorverkopen voordat je code schrijft."</em> Glasgow, Vitucci en Mittal zijn niet drie onafhankelijke oprichters die in 2026 toevallig op dezelfde conclusie uitkomen; het zijn drie oprichters die een door YC-partners gecoachte doctrine toepassen die jaren ouder is dan het AI-substraat. De doctrine dateert van vóór het bronnencorpus van dit handboek; het AI-substraat heeft alleen de gevolgen ervan scherper gemaakt.</p>
+
+    <p>De variant van Mittal &mdash; <em>het persoonlijk merk van de oprichter als distributiekanaal</em> &mdash; (Yhangry, mei 2026) is een aangrenzend patroon dat het kennen waard is. Mittal maakte van <em>AI-agenten uitleggen in gewone taal</em> een verkoopkanaal: ze pitchte <em>"in plaats van Yhangry te pitchen, ga ik iedereen in 30 minuten leren hoe ze AI-agenten bouwen,"</em> kreeg <strong>$50K aan conferentiepodia gratis</strong> en bouwde de demo van het Yhangry-AI-product in haar lesmateriaal in. <em>"Het is win-win-win-win-win."</em> Dit is verkoop door de oprichter uitgevoerd als <strong>inhoud-als-productdistributie</strong>, niet als directe ongevraagde benadering.</p>
+
+    <p>De discipline die beide varianten delen: <strong>de oprichter is het verkoopkanaal.</strong> Of het kanaal nu de vorm aanneemt van ongevraagde berichten (Vitucci), aanwezig zijn in elk Slack-kanaal (Glasgow) of lesgeven als pitchen (Mittal): de oprichter draait het.</p>
+
+    <p>Het derde ankerpunt uit de wiki: <strong>de office-hours-skill van Garry Tan</strong> &mdash; Tan codificeerde de office-hours-sessie van YC-partners voor verkoop- en productfeedback als een Claude Code-skill die <em>"de 10%-sterkte-versie levert van wat we bij YC dagelijks doen."</em> De skill is open source. Draai hem wekelijks op je eigen pitch en je eigen demo, met Claude of Codex in de rol van de YC-partner.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Concrete eerste 30 dagen van oprichtersverkoop voor een boekhoudapplicatie: <strong>(1)</strong> Stel een lijst samen van 200 CFO's en hoofden belastingen bij bedrijven in jouw doelsegment. <strong>(2)</strong> Stuur de eerste twee weken 20 ongevraagde berichten per dag op LinkedIn met de specifieke boodschap <em>"Ik kan jullie [wig-werkstroom] beter, sneller, betaalbaarder en met betere traceerbaarheid doen &mdash; 30 minuten, hier is een agenda-link."</em> <strong>(3)</strong> Voer elk gesprek zelf; delegeer niet. <strong>(4)</strong> Neem elk gesprek op (met toestemming), transcribeer met Claude, haal de drie dingen eruit die de afnemer zei en die niet aansloten bij je pitchdeck, en werk het pitchdeck binnen 48 uur bij. <strong>(5)</strong> Doe dit tot je drie betalende klanten hebt binnengehaald (halverwege de vijf cijfers per stuk is prima) of 100 gesprekken hebt gevoerd &mdash; wat eerder komt. De norm van 100 gesprekken is Vitucci's eigen discipline.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Blokkeer elke werkdag vier uur voor verkoopgesprekken tot je $1M ARR haalt. Alles wat met dat blok concurreert &mdash; ook engineering-meetings, aanwervingen, kapitaal ophalen &mdash; moet wijken. Dit is de discipline met de hoogste hefboom die een oprichter in deze fase kan uitoefenen.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We hebben in maand zes een Head of Sales aangenomen."</em> Het sterkste alarmsignaal van het handboek. Als je niet kunt antwoorden op <em>"waarom verkoopt de oprichter nog steeds bij $500K ARR?"</em> met <em>"omdat we zo de klant horen,"</em> heb je nog geen product-market-fit.
+    </div>
+
+    <div class="ribbon note">
+      <strong>Kanttekening &mdash; informatiedieet vóór product-market-fit.</strong> <em>"We passen het late-fase-groei-draaiboek van [Lenny / a16z / SaaStr] toe in de seed-fase."</em> Caldwells scherpste claim vanuit de <em>contraire hoek</em>, gemaakt <em>op Lenny's eigen kanaal</em>: <em>"Groei en growth-hacking en al dat analytische A/B-testen is volstrekt tijdverlies voor heel jonge startups. Veel van dat advies is afgestemd op bedrijven in een latere fase&hellip; je ziet die neiging om weg te bewegen van het werven van een eerste klant, één klant binnenhalen en met die ene persoon praten, en in plaats daarvan hebben ze al die heel complexe growth-hacking-theorie."</em> De kruiselingse meta-opmerking &mdash; Caldwell die voortijdige toepassing van Lenny's eigen content bekritiseert <em>op Lenny's eigen podcast</em> &mdash; is een klein maar puntig uitgewerkt voorbeeld van een <em>informatiedieet</em>: zelfs hoogwaardig late-fase-operationeel advies werkt in de seed-fase averechts als het klantgesprekken verdringt. De leeslijst van de oprichter vóór product-market-fit moet voor 90% bestaan uit klantontdekking, verkoop en wig-validatie, en voor 10% uit al het overige &mdash; niet omgekeerd.
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch8">
+    <div class="chapter-num">Hoofdstuk acht</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De AI-native veiligheidsomkering</span>
+      Wat veilig was, werd riskant. <em>Wat riskant was, werd veilig.</em>
+    </h2>
+
+    <p class="drop-cap-target">De meest onderscheidende bijdrage van John Glasgow aan de wiki is de stelling van de <strong>AI-native veiligheidsomkering</strong> (rond 24:08&ndash;24:31 van de Campfire-fireside):</p>
+
+    <blockquote>Het kopen van de gevestigde versie werd als heel veilig beschouwd. Maar toen AI op stoom kwam &mdash; in de finance-categorie ergens anderhalf jaar geleden, eind 2024 &mdash; betekende gevestigd zijn dat je niet AI-native was. Er was een omslag in het verhaal: de raad van bestuur en de directie zeiden 'we willen AI-native'. En zelfs als de accountant zelf nog niet helemaal klaar was om AI te omarmen, had hij nu de zegen om iets nieuws te kopen waar niemand van had gehoord en waar zijn directie of auditor nog niet vertrouwd mee was.</blockquote>
+
+    <div class="flip-viz" id="flipViz">
+      <div class="viz-label">Omkering &middot; wat de raad van bestuur als 'veilig' onderschrijft</div>
+      <h4>De omslag vond plaats aan de kant van de inkoopbeslisser, niet aan de productkant.</h4>
+      <div class="flip-stage">
+        <div class="flip-side" id="flipPre">
+          <div class="flip-era">Vóór 2024</div>
+          <div class="flip-row">Gevestigde ERP / Big 4<br/><span class="qual safe">&rarr; veilige keuze</span></div>
+          <div class="flip-row">AI-native leverancier<br/><span class="qual risky">&rarr; risicovolle gok</span></div>
+        </div>
+        <div class="flip-arrow" id="flipArrow">&harr;</div>
+        <div class="flip-side" id="flipPost">
+          <div class="flip-era">Na 2024</div>
+          <div class="flip-row">Gevestigde ERP / Big 4<br/><span class="qual risky">&rarr; riskant (niet AI-native)</span></div>
+          <div class="flip-row">AI-native leverancier<br/><span class="qual safe">&rarr; door bestuur gezegend</span></div>
+        </div>
+      </div>
+      <div class="viz-caption">De dagelijkse accountant aarzelt nog &mdash; maar de directie heeft toestemming gegeven om hem te overrulen.</div>
+    </div>
+
+    <p>Drie details die dit dragend maken:</p>
+
+    <ol>
+      <li><strong>Het is een omslag in het verhaal, geen omslag in de functionaliteit.</strong> Glasgows product had al jaren AI-functionaliteit; wat eind 2024 veranderde, was <em>wat de raad van bestuur als veilige keuze wilde onderschrijven</em>. De verschuiving zit aan de kant van de inkoopbeslisser, niet aan de productkant.</li>
+      <li><strong>De verschuiving loopt via het kanaal van directie, raad van bestuur en auditor, niet via de dagelijkse gebruiker.</strong> <em>"Zelfs als de accountant nog niet klaar was om AI te omarmen, had hij deze zegen"</em> &mdash; de aarzeling van de dagelijkse gebruiker wordt overruled door de inkoopbeslisser, niet overtuigd.</li>
+      <li><strong>Het verhaal moest verschuiven, ook al deed het kernproduct dat niet.</strong> <em>"Je verhaal moet blijven verschuiven, ook al verschuift het kernproduct uiteindelijk niet."</em></li>
+    </ol>
+
+    <p><strong>De gevolgen voor je verkoopbeweging:</strong> de afnemer is niet langer de dagelijkse gebruiker. De afnemer is de <strong>CFO, de raad van bestuur of de auditor</strong> die de <em>luchtdekking</em> levert waaronder de gebruiker jouw tool mag gebruiken. Je verkoopmateriaal, je pitchdeck, je klantcases en je referentiegesprekken moeten allemaal ontworpen worden voor dat inkoopniveau.</p>
+
+    <p>De parallel vanuit het mkb-perspectief: <strong>Mukund Jha</strong> bij Emergent (mei 2026) rapporteert $100M ARR in 8 maanden, 7 miljoen gebruikers in 190 landen, <em>"70&ndash;80% heeft nog nooit een regel code geschreven."</em> Dezelfde omslag in het inkoopverhaal &mdash; <em>AI-native zijn is niet langer het nadeel dat het was; gevestigd zijn is nu het nadeel</em> &mdash; speelt zich af aan de long-tail mkb- en niet-coderende kant van het spectrum.</p>
+
+    <p>Een aanvullende observatie van Diana Hu (Stanford CS153): <em>"Er zijn mensen die nog steeds op het co-pilot-niveau van vorig jaar werken, en dan denk je &mdash; die gaan het niet redden, jongen. Die gaan het niet redden."</em> Hu's formulering gaat over <em>engineeringteams</em> die agentic-coding niet omarmen; de parallelle observatie aan de inkoopkant is dat <em>bedrijven</em> die nog steeds gevestigde software kopen <em>omdat het veilig is</em>, voor hun eigen raad van bestuur risicovol beginnen te ogen.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Herschrijf je verkoopdeck voor de CFO en de auditcommissie. De dagelijkse accountant die jouw tool gebruikt, is je <em>gebruiker</em>, maar niet je <em>afnemer</em>. De pitchslides die in 2026 werken: (1) het contrast met <em>aangrenzende categorieën die al gemoderniseerd zijn</em> (<a href="#ch9">Hoofdstuk 9</a>); (2) de unit-economische vergelijking van <em>omzet per medewerker</em> (<a href="#ch13">Hoofdstuk 13</a>); (3) de toestemming-gevende formulering <em>'de raad van bestuur heeft ons gevraagd om AI-native opties te vinden'</em> &mdash; bevestig met de CFO dat dit de opdracht is die hij heeft gekregen, en positioneer je product vervolgens als het antwoord; (4) artefacten die de auditor geruststellen: SOC 2 Type II, bewijs van gegevenslocatie, een met naam genoemde human-in-the-loop bij elke ingrijpende output.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Toets je bestaande verkoopdeck tegen het publiek van CFO en auditcommissie. Als meer dan 30% van de slides de dagelijkse gebruiker aanspreekt in plaats van de inkoopbeslisser: herschrijf.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"Ons product is zo goed dat de gebruiker het van onderop wel zal promoten."</em> Beweging van onderop werkt in horizontale SaaS (Slack, Figma, Notion); het werkt niet in gereguleerde sectoren met gevestigde partijen, waar inkoop een bestuursbeslissing is.
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch9">
+    <div class="chapter-num">Hoofdstuk negen</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De pitch over de techstack-vernieuwing</span>
+      Benoem de <em>scherpte van het contrast</em>
+    </h2>
+
+    <p class="drop-cap-target">Toen seed-investeerders Glasgow vroegen <em>"waarom nu? Dit is een hele gevestigde markt, missiekritieke software,"</em> was zijn antwoord operationeel in plaats van macro (rond 22:44&ndash;23:18 van de Campfire-fireside):</p>
+
+    <blockquote>Alles in de finance-techstack &mdash; salarisadministratie, uitgavenbeheer met de Brexes van deze wereld &mdash; was in de afgelopen 5 tot 10 jaar vernieuwd, behalve het kerngrootboek. Een finance-medewerker logde in op een geweldige uitgavenbeheer-oplossing of crediteurenoplossing of salarisadministratie, en dan was het contrast met de ERP en al het andere heel scherp.</blockquote>
+
+    <p><strong>Het mechanisme:</strong> elke aangrenzende tool in de dagelijkse werkstroom van de klant is al herschreven in moderne SaaS; jouw categorie is de laatste dominosteen. Finance-teams die <em>het contrast dagelijks ervaren</em> melden zich uit zichzelf, in plaats van dat ze benaderd moeten worden.</p>
+
+    <div class="contrast-viz">
+      <div class="viz-label">Naast elkaar &middot; Beeld van de 'laatste dominosteen'</div>
+      <h4>Elke andere tool op het bureau van hetzelfde finance-team is gemoderniseerd. De jouwe niet.</h4>
+      <div class="contrast-pair">
+        <div class="contrast-panel modern">
+          <div class="tag">5 à 10 jaar geleden gemoderniseerd</div>
+          <ul>
+            <li>Brex &middot; uitgavenbeheer</li>
+            <li>Ramp &middot; corporate card + crediteuren</li>
+            <li>Rippling &middot; salaris + HR</li>
+            <li>Stripe &middot; facturatie</li>
+            <li>Mercury &middot; bankieren</li>
+          </ul>
+        </div>
+        <div class="contrast-panel legacy">
+          <div class="tag">Nog steeds UX uit 2008</div>
+          <ul>
+            <li>NetSuite &middot; grootboek</li>
+            <li>R&amp;D-aftrekaangiften &middot; Excel + PDF</li>
+            <li>Consolidatie meerdere entiteiten &middot; handmatig</li>
+            <li>Omzetverwerking &middot; spreadsheets</li>
+            <li>Het auditdossier &middot; papier + e-mail</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-caption">De gebruiker logt uit van de linker kolom en in op de rechter. De asymmetrie is de pitch.</div>
+    </div>
+
+    <p>Dit is de sterkste <em>waarom-nu</em>-diagnose uit de wiki. Pas hem toe op je eigen categorie door te vragen:</p>
+
+    <ol>
+      <li>Welke <strong>aangrenzende tools</strong> gebruikt jouw klant dagelijks, vlak voor of na jouw categorie?</li>
+      <li>Welke van die aangrenzende tools zijn <strong>in de afgelopen 5 tot 10 jaar herschreven</strong>?</li>
+      <li>Hoe ziet de <em>scherpte van het contrast</em> eruit in de dagelijkse UX van de klant &mdash; het moment waarop hij uitlogt van de moderne tool en in jouw categorie inlogt?</li>
+    </ol>
+
+    <p>Als je die drie vragen kunt beantwoorden met specifiek genoemde tools en een specifiek <em>moment van contrast</em>, dan heb je een <em>waarom-nu</em>-pitch die concreet en toetsbaar is. Lukt dat niet, dan is je <em>waarom-nu</em> te abstract.</p>
+
+    <p><strong>De macro-aanvulling:</strong> Apoorv Agrawal (Stanford MS&amp;E 435, mei 2026) levert de wiki de <strong>historische parallel met de achtjarige investeringscyclus van AWS</strong> als breder tijdkader: <em>"AWS is begonnen in 2004. AWS had zijn eerste klant in Netflix in 2010. Uiteindelijk verhuisde Amazon zelf volledig naar AWS in 2012. Acht jaar na de eerste schop in de grond."</em> De implicatie: de AI-uitbouw die we vandaag zien is structureel vergelijkbaar met AWS 2004&ndash;2012; het patroon van wie de waarde vangt, zal pas over jaren volledig uitkristalliseren; de juiste manier om je categorie te timen is <em>de timing van de investeringscyclus combineren met de uitkomst van welke laag wint</em>.</p>
+
+    <p>Een tweede ondersteunend ankerpunt: <strong>Brandon Hill</strong> bij Vori benoemt dezelfde observatie van een <em>categorie die nog niet gedigitaliseerd is</em> in de supermarktwereld &mdash; <em>"het grootste niet-gedigitaliseerde retailformat ter wereld, het meest voorkomende winkelgedrag van consumenten op de planeet, draaiend op papier, potlood, faxapparaten en paperclips."</em> De scherpte van het contrast in supermarkten zit <em>tussen de SpaceX-grade techniek aan de overkant van de straat en het klembord in de supermarkt</em>. De boekhoudkundige parallel van Vitucci: <em>"In 2020 lieten mijn ouders me een stapel papieren facturen zien en ik nam aan dat hij uit hun jeugd kwam &mdash; ze vertelden me dat hij van vorige week was."</em></p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>De slide met <em>de scherpte van het contrast</em> voor een boekhoudapplicatie moet letterlijk screenshots naast elkaar tonen. <strong>Links</strong>: de moderne tools die het finance-team van de klant dagelijks gebruikt &mdash; <strong>Brex</strong> (uitgavenbeheer), <strong>Ramp</strong> (corporate card en crediteuren), <strong>Rippling</strong> (salaris), <strong>Stripe</strong> (facturatie). <strong>Rechts</strong>: het scherm dat de klant ziet wanneer hij een R&amp;D-aftrek moet indienen, een consolidatie voor meerdere entiteiten moet sluiten of ASC-606-conforme omzetverwerking moet produceren. De visuele asymmetrie <em>is</em> de pitch. Vertel daarna het <em>waarom nu</em>: elke aangrenzende finance-tool is in de afgelopen 5 tot 10 jaar gemoderniseerd; de werkstroom die jij bedient is de laatste dominosteen.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Bouw de slide met de screenshots naast elkaar. Laat hem in de komende twee weken aan 5 prospects zien. Als ze niet reageren met <em>"ja, dat is precies wat ik elke dag ervaar,"</em> is het contrast óf niet scherp genoeg óf praat je met het verkeerde segment.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"AI is aan de gang en wij rijden mee op de golf."</em> Te abstract. De <em>waarom-nu</em> die landt, is operationeel en categorie-specifiek, niet macro.
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch10">
+    <div class="chapter-num">Hoofdstuk tien</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">Snelheid</span>
+      Bouwtempo als plaatsvervanger aan de inkoopkant voor <em>vergelijkbare functionaliteit</em>
+    </h2>
+
+    <p class="drop-cap-target">Een klant met $300M omzet tekende bij Campfire toen Campfire <strong>vier medewerkers</strong> had. De zorg van de CFO, woordelijk (rond 7:57&ndash;8:30 van de Campfire-fireside):</p>
+
+    <blockquote>Eén CFO vertelde me: we doen letterlijk een durfinvestering in jullie door met jullie in zee te gaan, want je kunt eigenlijk maar in één ERP tegelijk zitten. En hij zei: ik word letterlijk ontslagen als jullie omvallen. Wij zijn zo groot, en dit contract is langer dan jullie cash-runway.</blockquote>
+
+    <p>Wat het verschil overbrugde, was niet vergelijkbare functionaliteit. Wat het verschil overbrugde, was <strong>zichtbaar bouwtempo</strong>. Peer-klanten vertelden Glasgow (rond 10:20&ndash;10:36): <em>"Jullie bouwen zo snel. Naarmate we nieuwe internationale dochters toevoegen, naarmate we nieuwe functies nodig hebben, naarmate onze verbruiksgebaseerde omzet complexer wordt, hebben we het vertrouwen dat jullie ons vóór blijven."</em></p>
+
+    <p>Het patroon uit de wiki: <strong>vooruitkijkend bouwtempo is de plaatsvervanger aan de inkoopkant voor vergelijkbare functionaliteit op dit moment.</strong> Wanneer de enterprise-afnemer vraagt <em>"hoe weet ik dat jullie er over 5 jaar nog zijn?"</em> (hij vraagt het), is het antwoord niet 'roadmap-beloftes'; het antwoord is <em>kijk wat we vorige week hebben gebouwd, kijk wat we vorige maand hebben gebouwd, kijk wat we het afgelopen kwartaal hebben opgeleverd, en hier zijn drie met naam genoemde peer-klanten die bereid zijn voor ons bouwtempo in te staan.</em></p>
+
+    <p>Twee aangrenzende uitgewerkte voorbeelden uit de wiki:</p>
+
+    <ul>
+      <li><strong>Mukund Jha / Emergent</strong>: $100M ARR in 8 maanden. Het voorbeeld van platformleverancier-snelheid. Klanten verwoordden de snelheid van Emergent zelf als de functie (<em>"bij elke modelrelease verwijderen we het systeem en bedenken we het opnieuw"</em> &mdash; systeem in 9 maanden vier keer herschreven).</li>
+      <li><strong>Ayush Garg / AnswerThis</strong>: meer dan 45 zelfgeschreven CLI's door de coding-sub-agent van de agent. Het voorbeeld van snelheid op microschaal &mdash; $2M ARR met 2 voltijdsmedewerkers, waar bouwtempo per FTE de hoofdmaatstaf is.</li>
+    </ul>
+
+    <p><strong>Schoening levert de noodzakelijke nuance</strong> (Notion): snelheid is niet hetzelfde als engineering-kwaliteit. <em>"Als jij en ik een hardware-startup zouden bouwen, zouden we de eerste behuizingen met een 3D-printer maken &mdash; en je zou alle laagjes zien. Het zou overduidelijk zijn dat dit niet iets is wat je mensen tegen betaling moet geven. Daarna komt er een lange kronkelweg naar het punt waarop je, als je geluk hebt, dat product voor 100 miljoen mensen mag fabriceren."</em> De fysieke metafoor van Schoening voor <em>prototype versus engineering</em>: door AI gegenereerde code is het 3D-geprinte prototype met zichtbare laagjes; het engineering-werk is <em>de fabriek optimaliseren voor 100 miljoen gebruikers</em>. Het huidige debat legt te veel gewicht op hoe snel prototypes gebouwd kunnen worden; de onderbelichte helft is het engineering-werk dat het prototype omzet in een gefabriceerd product.</p>
+
+    <p><strong>Adam Bender</strong> (Google I/O 2026) benoemt hetzelfde onderscheid op ecosysteemniveau: <em>"Er is een groot verschil tussen 10 keer sneller code genereren en 10 keer sneller engineeren. Bij Google zeggen we vaak: engineering is programmeren geïntegreerd over tijd."</em></p>
+
+    <p><strong>James Ivers</strong> (Software Engineering Institute / Carnegie Mellon University, mei 2026) plaatst dezelfde kanttekening op het niveau van het institutionele onderzoekscentrum, met een concreet uitgewerkt voorbeeld: <em>"Ik deed een vibe-coding-experiment. Ik produceerde een applicatie van begin tot eind, 25.000 regels code in een taal die ik nog nooit had geschreven. Ik kreeg een heel gelikte applicatie, maar onder de motorkap was hij verschrikkelijk gestructureerd. De architectuur was slecht. Het was niet erg onderhoudbaar."</em> Gekoppeld aan de tijdshorizon-claim die Ivers toeschrijft aan een eerdere lezing: <em>"Niemand heeft door AI gegenereerde code 5 jaar lang onderhouden. Het bestaat nog niet zo lang. We weten niet wat het wordt om die code over vijf jaar te onderhouden."</em> Dezelfde kanttekening komt nu <strong>op drie niveaus</strong> terug: de praktijk (Schoening bij Notion), het leveranciersecosysteem (Bender bij Google) en het institutionele onderzoekscentrum (Ivers bij SEI). Drie verschillende stemmen, één boodschap &mdash; <em>snelheid is een verkoopsignaal, maar engineering-discipline is wat de onderhoudshorizon van 5 jaar overleeft</em> &mdash; en het zijn precies de drie niveaus die de inkoopafnemer naast elkaar legt bij een echte referentiecheck.</p>
+
+    <p>De implicatie voor je verhaal over bouwtempo: leid met <em>programmeer</em>snelheid (zichtbaar, demonstreerbaar, klantgericht), maar onderbouw die met <em>engineering</em>-discipline (uptime-SLA's, foutpercentages, audit trails, wijzigingsbeheer). De inkoopafnemer beoordeelt <em>programmeersnelheid als vertrouwenssignaal</em>, maar behoudt het recht om naar <em>engineering-kwaliteit</em> te kijken zodra hij dat belangrijk vindt.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Je verhaal over bouwtempo voor een boekhoudapplicatie zou moeten bevatten: <strong>(a)</strong> een <em>changelog</em> op je publieke website met wekelijkse updates, inclusief functies die specifieke klanten hebben gevraagd; <strong>(b)</strong> minstens drie met naam genoemde peer-klanten die bereid zijn een referentiegesprek te voeren over een specifiek verhaal van <em>"in de afgelopen 6 maanden is dit wat ze voor ons hebben opgeleverd"</em>; <strong>(c)</strong> een <em>roadmap met betrouwbaarheidsintervallen</em> &mdash; <em>"deze drie dingen dit kwartaal (hoge zekerheid), deze drie dingen volgend kwartaal (gemiddelde zekerheid), dit verkennen we (lage zekerheid)"</em>. Vertrouwen aan de inkoopkant bouw je door <em>je werk te laten zien</em>, niet door de hemel te beloven.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Publiceer een publieke changelog. Werk hem wekelijks bij. Train de spier van <em>je bouwtempo zichtbaar maken</em> voordat je het nodig hebt als verkoopinstrument.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We laten onze snelheid zien via ons roadmap-deck."</em> Roadmap-decks zijn beloftes. Inkoopafnemers wegen beloftes lager. Changelogs zijn kwitanties. Changelogs zijn <em>vooruitkijkende vertrouwenssignalen, omdat ze terugkijkende waarheidssignalen zijn</em>.
+    </div>
+  </section>
+
+  <section class="part-opener fade-in" id="part-5">
+    <span class="part-label">Deel V</span>
+    <h2 class="part-title">Naleving <em>en opbouwen</em></h2>
+    <p class="part-blurb">In Chase's drielaagse model &mdash; model + harness + context &mdash; is het <em>model</em> gehuurd en commodity. Je verdedigingslinie zit in de twee lagen daaronder: de <strong>harness</strong> (<a href="#ch11">H 11</a>) die je zelf bezit en bestuurt, en de <strong>context</strong> (<a href="#ch12">H 12</a>) die de klant in je product inbrengt. Deze twee hoofdstukken behandelen elk één laag; samen vormen ze het kompas om vijf jaar te overleven in gereguleerde sectoren &mdash; boekhouding, recht, zorg, finance &mdash; waar naleving niet optioneel is.</p>
+    <div class="part-divider"></div>
+  </section>
+
+  <section class="chapter fade-in" id="ch11">
+    <div class="chapter-num">Hoofdstuk elf</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De harness-laag</span>
+      Skill-bestuur als <em>productoppervlak</em>
+    </h2>
+
+    <p class="drop-cap-target">Dit hoofdstuk behandelt de <strong>harness-laag</strong> van Chase's drielaagse model &mdash; de laag die je zelf bezit, die langzaam aan waarde wint, en die voor nalevingsteams je productoppervlak vormt. Skill-resolver, bestuurscyclus, evals, audit trails en uitfaseringsdatums wonen hier. Het sterkste empirische ankerpunt in de wiki over wat misgaat zonder bestuur over die harness-laag komt van <strong>Tushara Fernando</strong> bij Man Group (gereguleerde beleggingsbeheerder met circa 200 miljard dollar onder beheer, mei 2026). Nadat skill-workshops onder leiding van Anthropic enthousiaste adoptie door het hele bedrijf op gang brachten:</p>
+
+    <blockquote>We begonnen barsten te zien in onze aanpak. Het waren echt de power users die de skills bouwden. Niet de proceseigenaren. Er was een man bij Man Group die veel reisde en stapels declaraties had liggen. Hij schreef er een skill voor. Hij gaf Claude veel foto's van bonnetjes en Claude maakte het declaratieformulier voor hem. Hij liet het zien in de show-and-tell-sessie en deelde het ook met een paar mensen in zijn team. Een paar dagen later kwam de declaratie-goedkeurder bij ons en zei: 'Waarom maakt Claude zoveel declaraties voor mijn kostenplaats? Mensen van techniek, mensen van het people-team. Waarom moet ik die allemaal goedkeuren? Ik werk in sales. Ik wil de declaraties van anderen niet goedkeuren.' En toen we erin doken, bleek dat de kostenplaats-code hardgecodeerd was. Niemand had die skill beoordeeld. Hij werkte voor hem, hij werkte voor zijn team, dus hij zou voor iedereen werken. En hij was er niet verantwoordelijk voor. Hij vond het eigenlijk best grappig. En eerlijk gezegd, ik ook.</blockquote>
+
+    <p>Het declaratie-debacle is het helderste empirische voorbeeld uit de wiki van waarom <strong>bestuur over skills niet optioneel is zodra je opschaalt naar een echte organisatie</strong>.</p>
+
+    <p><strong>De institutionele-onderzoekscentrum-formulering van dezelfde discipline.</strong> Dezelfde James Ivers die in <a href="#ch10">Hoofdstuk 10</a> de kanttekening over het 25.000-regel-vibe-coding-experiment leverde, benoemt diezelfde discipline hier op het niveau van de <em>bredere software-toeleveringsketen</em> &mdash; de tegenhanger van Fernando's stem van binnen één bedrijf: <em>"We laten de waarborgen die we nu hebben niet los alleen omdat er meer code is. We zullen ze misschien anders opschalen."</em> Drie concrete uitwerkingen van die discipline door Ivers die direct relevant zijn voor jouw productoppervlak:</p>
+
+    <ol>
+      <li><strong>Onderspecificatie als de slechte praktijk die AI het meest uitvergroot.</strong> <em>"Als ik [Cursor] een losse requirement gaf, prima. Hij ging gewoon code genereren en alle gaten invullen. Hij besloot welke randgevallen het waard waren om af te handelen, welke niet, wat ik écht bedoelde met die requirement. Een vreselijk idee."</em> De specificatie, niet de code, is de bron van waarheid. (Wu en An bij Momentic maken hetzelfde punt vanuit het oprichtersperspectief; de SEI-versie is de institutionele herformulering.)</li>
+      <li><strong>Slop-squatting als nieuwe aanvalsvector.</strong> <em>"Generatieve AI genereert code voor ons. Soms genereert hij een include of een <code>with</code> van een pakket dat niet echt bestaat. De naam klinkt goed, maar bestaat niet. Dit is daadwerkelijk een aanvalsvector geworden waarbij tegenstanders een dummy-repository onder die nepnaam kunnen aanmaken."</em> De verdediging is bestaande discipline toegepast: SBOM's, beheer van de toeleveringsketen, beoordeling van code van derden. Jouw productoppervlak moet niet alleen het gedrag van elke skill die de klant draait blootgeven, maar ook het manifest van pakketten en afhankelijkheden.</li>
+      <li><strong>De kanttekening van de vijfjarige onderhoudshorizon.</strong> <em>"Niemand heeft door AI gegenereerde code 5 jaar lang onderhouden. Het bestaat nog niet zo lang. We weten niet wat het wordt om die code over vijf jaar te onderhouden."</em> Daarom zijn uitfaseringsdatums (hieronder) geen optionele bureaucratie; ze zijn het operationele antwoord op een horizon die we empirisch nog niet kunnen kalibreren.</li>
+    </ol>
+
+    <p>De brug naar de oplossing van Fernando: bestuur is geen leveranciers-zijdige discipline die je bouwt om compliance-officers vakjes te laten aanvinken. Het is het <strong>operationele antwoord op een klasse van faalvormen &mdash; declaratie-debacle door hardgecodeerde kostenplaats (Fernando), slop-squatting (Ivers), onderspecificeerde-skill-vult-de-gaten-in (beide)</strong> &mdash; die op schaal voorspelbaar terugkeren.</p>
+
+    <p>De oplossing van Fernando &mdash; de <strong>kennismarktplaats</strong>:</p>
+
+    <ul>
+      <li><strong>Elke skill is zichtbaar, getagd en met evals getest.</strong></li>
+      <li><strong>De skill is eigendom van de eigenaar van de werkstroom</strong>, niet van de power user die hem schreef.</li>
+      <li><strong>Het gebruik wordt gevolgd. Skills worden beoordeeld. Ze hebben een levenscyclus. Ze zijn voor iedereen zichtbaar om te installeren.</strong></li>
+      <li><strong>Plugins als groepen van skills</strong> (bijvoorbeeld een <em>data-plugin</em> die toegang geeft tot de datasets van Man Group).</li>
+    </ul>
+
+    <div class="viz">
+      <div class="viz-label">Diagram &middot; De levenscyclus van een skill, niet alleen het maken ervan</div>
+      <h4>Een skill is een stuk productiecode. Behandel hem zo.</h4>
+      <svg viewBox="0 0 700 200" class="sketch">
+        <rect x="10" y="80" width="100" height="40" rx="3" class="fill-yellow"/>
+        <text x="32" y="105">geschreven</text>
+        <rect x="155" y="80" width="100" height="40" rx="3"/>
+        <text x="178" y="105">beoordeeld</text>
+        <rect x="300" y="80" width="100" height="40" rx="3"/>
+        <text x="318" y="105">eigendom</text>
+        <text x="307" y="135" class="small">(werkstroom-lead)</text>
+        <rect x="445" y="80" width="100" height="40" rx="3"/>
+        <text x="465" y="105">in gebruik</text>
+        <text x="455" y="135" class="small">(gebruik gevolgd)</text>
+        <rect x="590" y="80" width="100" height="40" rx="3" class="fill-rust"/>
+        <text x="608" y="105">uitgefaseerd</text>
+        <path d="M115 100 L150 100" class="thick"/>
+        <polygon points="145,96 152,100 145,104" class="fill-ink"/>
+        <path d="M260 100 L295 100" class="thick"/>
+        <polygon points="290,96 297,100 290,104" class="fill-ink"/>
+        <path d="M405 100 L440 100" class="thick"/>
+        <polygon points="435,96 442,100 435,104" class="fill-ink"/>
+        <path d="M550 100 L585 100" class="thick"/>
+        <polygon points="580,96 587,100 580,104" class="fill-ink"/>
+        <path d="M50 130 Q350 175 670 130" class="dashed"/>
+        <text x="240" y="190" class="tag">&rarr;  audit trail begeleidt elke stap</text>
+        <text x="10" y="40" class="tag">Power user bouwt.  Werkstroom-eigenaar bezit.  Evals en check-resolvable handhaven.</text>
+      </svg>
+    </div>
+
+    <p>Het onderliggende kader is Garry Tans <strong>skillify-protocol</strong> uit hetzelfde cluster van mei 2026 (Stanford CS153): unit-tests + LLM-evals + integratietest + resolver-entry + trigger-eval + <strong>check-resolvable</strong> + smoke test + schema. Tan en Fernando zeggen vanuit tegengestelde hoogten hetzelfde &mdash; Tan als de stroomopwaartse retorische formulering (skills = werknemers, resolvers = organogram, check-resolvable = audit, trigger-evals = beoordelingsgesprekken); Fernando als het empirische voorbeeld van <em>wat er gebeurt in een gereguleerd bedrijf als het protocol niet wordt gevolgd</em>.</p>
+
+    <p>Een derde ankerpunt: <strong>Harrison Chase</strong> (LangChain, Interrupt 26, mei 2026) benoemt dezelfde architectuur als <strong>drielaags continu leren</strong>: model (Sonnet, GLM4, GPT-4) + harness (Deep Agents, Claude Code, <em>de skill-resolver en de evals die governance afdwingen</em>) + context (organisationele policies, klantopgebouwde workflows, <code>agent.md</code>). Skills zijn een grensgeval: de <em>skill-machinerie</em> (resolver, lifecycle, evals) hoort harness-zijdig; de <em>skill-inhoud</em> (de organisationele kennis die de skill codificeert) hoort context-zijdig &mdash; en dat is precies de scheidslijn die <a href="#ch12">Hoofdstuk 12</a> oppakt. <em>"Evals werken als een dwingende functie&hellip; die evals leveren een vergelijkbaar type trainingsgradient."</em></p>
+
+    <p>Voor jouw boekhoudapplicatie geldt: <strong>bestuur over skills is niet alleen een leveranciersdiscipline. Het is het productoppervlak aan de klantkant dat compliance toestaat om 'ja' te zeggen.</strong></p>
+
+    <p>De lessen van Fernando aan haar verleden-ik, geleverd als checklist:</p>
+
+    <ol>
+      <li><em>Focus op organisatorische context &mdash; dat is je IP, je verdedigingslinie.</em> (<a href="#ch12">Hoofdstuk 12</a>.)</li>
+      <li><em>Behandel skills als productiecode</em> &mdash; versiebeheer, code review, deploymentproces, monitoring.</li>
+      <li><em>Plan het bestuur vóór de uitrol &mdash; wie bezit, beoordeelt, faseert uit, test. <strong>Vóór het opleveren van de eerste skill, niet na de honderdste, zoals bij ons.</strong></em></li>
+      <li><em>Adoptie is een mensenprobleem, geen licentieprobleem.</em></li>
+    </ol>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Bouw <strong>bestuur over skills</strong> in als eersteklas functie van je productoppervlak, niet als backoffice-zorg. Concrete leveringen: <strong>(a)</strong> elke skill of werkstroom die je product uitvoert <strong>is eigendom van een met naam genoemde werkstroom-eigenaar</strong> in de organisatie van de klant (niet van de gebruiker die hem als eerste aanriep); <strong>(b)</strong> elke skill heeft een <strong>versiehistorie</strong>, een <strong>beoordelingsspoor</strong> en een <strong>uitfaseringsdatum</strong>; <strong>(c)</strong> elke skill produceert een <strong>machine-leesbare audit trail</strong> (wie hem heeft aangeroepen, welke data hij heeft aangeraakt, welke output hij heeft geproduceerd, wie de output heeft beoordeeld); <strong>(d)</strong> je enterprise-pitchdeck bevat een slide getiteld <em>"Hoe je compliance-functionaris 'ja' zegt"</em> die (a) tot en met (c) doorloopt.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Identificeer de <em>met naam genoemde compliance-rol</em> bij drie prospects. Bouw een rondleiding van 30 minuten door je bestuurs-oppervlak speciaal voor die rol. Plan de drie rondleidingen in binnen de komende 60 dagen.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We bouwen het bestuur pas als klanten erom vragen."</em> De les van Fernando &mdash; <em>vóór de eerste skill, niet na de honderdste</em> &mdash; is het sterkste afzonderlijke antipatroon-signaal in het handboek. Bestuur dat achteraf wordt opgetuigd, vereist een terugwerkende toewijzing van eigenaarschap en een terugwerkende reconstructie van audit trails; beide zijn op schaal vrijwel onmogelijk.
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch12">
+    <div class="chapter-num">Hoofdstuk twaalf</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De context-laag</span>
+      Wat de klant inbrengt en <em>niet eruit kan trekken</em>
+    </h2>
+
+    <p class="drop-cap-target">De meest direct citeerbare claim uit de wiki over waar concurrentiebescherming in 2026 zit, komt eveneens van Fernando (rond 16:47):</p>
+
+    <blockquote>Focus op die organisatorische context. <strong>Dat is je IP. Het is je verdedigingslinie. Het is een van de weinige veilige plekken die in AI nog overblijven.</strong> De frontier labs gaan context niet voor je oplossen. Hij staat niet op het internet. Zij kennen je werkstromen niet. En jij hebt die context al. Je hebt er decennia van. Het werk zit in het blootleggen ervan, niet in het opnieuw uitvinden. En skills zijn de manier waarop die decennia institutionele kennis hefboomwerking krijgen.</blockquote>
+
+    <p>Zoals geschetst in de opening van <a href="#part-5">Deel V</a> en in <a href="#ch11">Hoofdstuk 11</a>, zit jouw verdedigingslinie in twee lagen van Chase's drielaagse model. H 11 behandelde de harness &mdash; de laag die je zelf bezit en bestuurt. Dit hoofdstuk behandelt de <strong>contextlaag</strong>: de plek waar klantspecifieke waarde zich opbouwt en die de klant <em>niet</em> kan migreren naar een concurrent. Je product omhult de context van de klant en stelt die beschikbaar voor de AI om mee te werken.</p>
+
+    <div class="viz">
+      <div class="viz-label">Stackdiagram &middot; Drie lagen, drie afschrijvingscurves</div>
+      <h4>Als je niet kunt aangeven in welke laag je verdedigingslinie leeft, heb je er geen.</h4>
+      <svg viewBox="0 0 700 270" class="sketch">
+        <rect x="40" y="30" width="620" height="55" rx="3" class="fill-rust"/>
+        <text x="60" y="62">model</text>
+        <text x="60" y="80" class="small">Sonnet &middot; GPT &middot; GLM4 &middot; Gemini</text>
+        <text x="450" y="62" class="tag">gehuurd &middot; reset per kwartaal</text>
+        <rect x="40" y="100" width="620" height="55" rx="3" class="fill-yellow"/>
+        <text x="60" y="132">harness</text>
+        <text x="60" y="150" class="small">je applicatie, evals, skill-resolver</text>
+        <text x="450" y="132" class="tag">eigendom &middot; bouwt langzaam op</text>
+        <rect x="40" y="170" width="620" height="65" rx="3" class="fill-moss"/>
+        <text x="60" y="200">context</text>
+        <text x="60" y="220" class="small">beleid, journaalsporen, jurisdictieregels, werkstromen</text>
+        <text x="450" y="200" class="tag">van de klant &middot; niet te migreren</text>
+        <text x="40" y="260" class="tag">"je taak is om het de klant onmogelijk te maken om dit eruit te trekken."</text>
+      </svg>
+    </div>
+
+    <p>De architectonische implicatie: <strong>bouw het product zó, dat de gecodificeerde werkstromen, datapijplijnen, nalevingsregels en boekhoudkundige beleidskaders van de klant het substraat vormen</strong> &mdash; niet het model, niet je applicatiecode. Een modelupgrade moet je product verbeteren zonder dat je de context van de klant hoeft te migreren. Een klant die in 18 maanden context heeft opgebouwd in jouw product, zou moeten ontdekken dat die context onmogelijk te extraheren en te repliceren is bij een concurrent.</p>
+
+    <p>Drie aanvullende formuleringen uit de wiki:</p>
+
+    <ul>
+      <li><strong>Garry Tan</strong> (Stanford CS153): <em>"Organisatorische context is wat je niet kunt faken. De frontier labs kunnen die je niet geven. Het is je verdedigingslinie."</em> Tans formulering is korter, maar zegt hetzelfde.</li>
+      <li><strong>Carly Ryan</strong> (Anthropic, in gesprek met Mukund Jha van Emergent): een herbruikbaar drietal van <em>verdedigingslinies die intelligentie alleen niet kan overwinnen</em> &mdash; <em>(1) diep gebruikersbegrip; (2) eigen infrastructuur en barrières in gereguleerde gebieden; (3) menselijk vertrouwen</em>. Het drietal is de consumenten-leveranciersinvalshoek op dezelfde Fernando-observatie.</li>
+      <li>De pagina <code>concepts/foundation-models</code> van de wiki, met een verwijzing naar Chatterjee 2026: <em>"Modellen convergeren naar commoditystatus. Ze worden gehuurd van leveranciers wier concurrenten ze binnen het jaar voorbijgaan. Ze worden uitgewisseld, doorgerouteerd, per kwartaal vervangen&hellip; Het model is wat je huurt. De harness is wat je bezit."</em> In jouw versie van dat gezegde: <strong>de context is wat je klant inbrengt, en jouw taak is om het de klant onmogelijk te maken die eruit te trekken.</strong></li>
+      <li><strong>Mario Benitez</strong> (SEI &mdash; Carnegie Mellon, mei 2026) &mdash; dezelfde institutionele stem uit <a href="#ch10">Hoofdstuk 10</a> en <a href="#ch11">Hoofdstuk 11</a> &mdash; levert het uitvloeisel op het niveau van de abstractielaag: <em>"Vroeger schreven we assembly-code en toen kwamen compilers, en hoefde je dat niet meer te doen. Ik weet dat dit nog steeds niet-deterministisch is&hellip; maar we tillen het wel een stukje op. Hoeveel weet ik niet."</em> Het model is de nieuwe compiler; <em>niet-determinisme is de nieuwe eigenschap van de abstractieverschuiving</em>. De taak van jouw product is om dat niet-determinisme te absorberen in een deterministische ervaring voor de klant &mdash; de contextlaag is wat die absorptie mogelijk maakt, en de verdedigingslinie is alles wat de klant heeft opgebouwd en wat de betere compiler van volgend kwartaal niet voor hem kan herschrijven.</li>
+    </ul>
+
+    <p>Het productontwerp-uitvloeisel: <strong>overstapkosten worden bepaald door hoeveel klantspecifieke context je hebt opgebouwd</strong>. Als je concurrent een importscript van 50 regels kan schrijven dat alle data van de klant uit jouw product haalt en in het zijne plaatst, heb je geen verdedigingslinie. Als verhuizen uit jouw product van de klant vereist dat hij 200 bestuurde skills, 1.000 beoordeelde werkstroomupdates en een meerjarige audit trail opnieuw moet opbouwen, dan heb je een diepe verdedigingslinie.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>De context die jouw boekhoudapplicatie per klant zou moeten opbouwen: <strong>(a)</strong> gecodificeerde kantoor-specifieke boekhoudregels (regels voor omzetverwerking, koppelingen in het rekeningschema, regels voor onderlinge eliminatie, transfer-pricing-aannames); <strong>(b)</strong> historische journaalsporen met beoordelingsaantekeningen (welke posten zijn in de audit ter discussie gesteld, welke zijn doorgewuifd, welke zijn anders geclassificeerd); <strong>(c)</strong> een per klant opgebouwde skill-bibliotheek voor terugkerende werkstromen (bijvoorbeeld een <em>'sluit de boeken voor mei'</em>-skill die de specifieke afsluitchecklist van het kantoor codificeert); <strong>(d)</strong> context over de regulerende jurisdictie (per staat verschillende belastingbehandeling, sectorspecifieke boekhoudstandaarden). Alle vier zijn <em>onmogelijk vanaf nul te repliceren op een concurrerend product</em> &mdash; en dat is je verdedigingslinie.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Breng het <em>contextoppervlak</em> van je huidige product in kaart. Kun je per klant de met naam genoemde stukken klantspecifieke context opsommen die je product heeft opgebouwd? Is die lijst kort of vaag, dan is je verdedigingslinie ondiep. Maak het opbouwen van context een expliciete prioriteit in de roadmap.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"Onze verdedigingslinie is het model &mdash; we hebben het gefinetuned op boekhoudkundige data."</em> Het model huur je. De finetuning is te repliceren. De verdedigingslinie is de opgebouwde context van de klant die jouw product omhult, niet het model waarop jouw product draait.
+    </div>
+  </section>
+
+  <section class="part-opener fade-in" id="part-6">
+    <span class="part-label">Deel VI</span>
+    <h2 class="part-title">Het <em>lange spel</em></h2>
+    <p class="part-blurb">De laatste twee hoofdstukken zijn de unit-economische vergelijking waarmee je enterprise-pitches wint, en de toekomstige vorm van de klantorganisatie die je vijfjarige productstrategie zou moeten sturen.</p>
+    <div class="part-divider"></div>
+  </section>
+
+  <section class="chapter fade-in" id="ch13">
+    <div class="chapter-num">Hoofdstuk dertien</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">Omzet per medewerker</span>
+      De <em>doorslaggevende vergelijking</em> voor enterprise-pitches
+    </h2>
+
+    <p class="drop-cap-target">De meest memorabele enterprise-pitchslide van Vitucci is een vergelijking van één getal (rond 25:35 van de Onshore Breakdown-aflevering):</p>
+
+    <blockquote>Dit jaar, in 2026, mikken we op $100 miljoen omzet. Eind van het jaar hebben we tussen de 60 en 100 medewerkers. Stel dat het er 100 zijn. Dan halen we minstens een miljoen dollar omzet per medewerker. En wat is dat getal voor een Grant Thornton, een Deloitte of een KPMG? Mijn inschatting zou zijn $100.000, misschien $150.000. Je bent een orde van grootte beter. En je wordt vooruit alleen maar beter, want jij bent softwaregebaseerd en zij kunnen niet echt veranderen. En zij worden alleen maar slechter, zeker nu we zien dat veel van deze grote bedrijven niet in technologie investeren maar in buitenlandse operaties.</blockquote>
+
+    <div class="rev-chart" id="revChart">
+      <div class="viz-label">Animatie &middot; Omzet per medewerker</div>
+      <h4>De CFO kan dit in 30 seconden controleren.</h4>
+      <div class="rev-bars">
+        <div class="rev-row">
+          <div class="rev-label">Gevestigde Big 4<span class="sub">Deloitte / KPMG / Grant Thornton</span></div>
+          <div class="rev-bar-container"><div class="rev-bar legacy" data-pct="13" style="width:0%"><span>$100&ndash;150K</span></div></div>
+          <div class="rev-value">~$125K</div>
+        </div>
+        <div class="rev-row">
+          <div class="rev-label">SaaS uit het Salesforce-tijdperk<span class="sub">vergelijking jaren 2010</span></div>
+          <div class="rev-bar-container"><div class="rev-bar legacy" data-pct="20" style="width:0%"><span>onder $200K</span></div></div>
+          <div class="rev-value">&lt;$200K</div>
+        </div>
+        <div class="rev-row">
+          <div class="rev-label">AI-native leverancier<span class="sub">Onshore-doel 2026</span></div>
+          <div class="rev-bar-container"><div class="rev-bar native" data-pct="100" style="width:0%"><span>$1M+</span></div></div>
+          <div class="rev-value">$1M+</div>
+        </div>
+      </div>
+      <div class="viz-caption">Een orde van grootte. De pitch landt op rekenwerk dat de CFO aan de raad van bestuur kan herhalen.</div>
+    </div>
+
+    <p>De vergelijking is de doorslaggevende pitchslide omdat hij de eerste vraag van de CFO beantwoordt &mdash; <em>"waarom zou ik overstappen?"</em> &mdash; met één rekenkundige claim die de CFO in 30 seconden kan natrekken. <strong>Onshore: ~$1M omzet per medewerker. Big 4 / top 20: ~$100&ndash;150K omzet per medewerker. Een orde van grootte.</strong></p>
+
+    <p>De wiki bevat versterkingen van het ijkpunt van <em>$1 à 2 miljoen omzet per medewerker</em> vanuit meerdere invalshoeken:</p>
+
+    <ul>
+      <li><strong>Diana Hu</strong> (YC, Stanford CS153): het portfolio-ijkpunt van YC voor AI-native bedrijven &mdash; <em>$1 à 2 miljoen omzet per medewerker</em> &mdash; tegenover Salesforce-vergelijkingen op <em>"onder de zes cijfers."</em></li>
+      <li><strong>Ayush Garg</strong> (AnswerThis): $2M ARR met <strong>2 voltijdsmedewerkers</strong> plus 2 à 3 zzp'ers. Het voorbeeld op microschaal.</li>
+      <li><strong>Mukund Jha</strong> (Emergent): $100M ARR in 8 maanden met een klein oprichtersteam. Het voorbeeld op platformleveranciers-schaal.</li>
+      <li><strong>Tushara Fernando</strong> (Man Group): 750 van de 1.700 medewerkers werken met Claude Code &mdash; dat is het vergelijkingscijfer voor de <em>gevestigde enterprise</em>. De adoptie van 44% Claude Code bij Man Group is hoe <em>goed</em> eruitziet aan de kant van de gevestigde partij, en zelfs dat ligt ruim onder de economie van meer dan $1M per medewerker.</li>
+    </ul>
+
+    <p>Begin de enterprise-pitch met de vergelijking en <em>laat de CFO het rekenwerk doen</em>. Het gesprek dat volgt is niet langer <em>"zijn jullie beter?"</em> &mdash; het is <em>"kan ik het getal vertrouwen?"</em> Dat is een veel korter gesprek, en een gesprek dat je wint.</p>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Je enterprise-pitchdeck voor een boekhoudapplicatie zou moeten openen met één slide: <em>"Big 4 / top 20: ~$100&ndash;150K omzet/medewerker. Wij: doel $1M+ omzet/medewerker. Een orde van grootte. Hier is waarom."</em> De alinea <em>'hier is waarom'</em> verwijst naar de structurele redenen van Vitucci: <strong>(a)</strong> softwaregebaseerd in plaats van per uur gefactureerd; <strong>(b)</strong> AI-agenten vervangen de dikke onderlaag van junioren; <strong>(c)</strong> de gevestigde partij investeert in buitenlandse operaties in plaats van in technologie, dus de kloof wordt groter. Schakel daarna over naar je <em>welke-werkstroom</em>-slides (<a href="#ch3">Hoofdstuk 3</a>) &mdash; maar veranker altijd eerst op de unit-economische vergelijking.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Bouw de unit-economische vergelijkingsslide. Laat hem beoordelen door een CFO van een doelklant voor je volgende 5 verkoopgesprekken. Zegt de CFO <em>"die rekenkunde werkt niet vanwege [reden]"</em>, herstel de rekenkunde dan tot hij zegt <em>"dat is interessant."</em>
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We laten de ROI zien via productiviteitswinst."</em> Pitches op productiviteitswinst zijn traag en wazig. Unit-economische vergelijkingen zijn snel en helder. De unit-economische vergelijking is wat de CFO namens jou aan de raad van bestuur herhaalt wanneer jij niet in de kamer bent.
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="ch14">
+    <div class="chapter-num">Hoofdstuk veertien</div>
+    <h2 class="chapter-title">
+      <span class="ch-tag">De toekomstige vorm van het bedrijf</span>
+      Bouw voor het organogram dat je klant <em>gaat worden</em>
+    </h2>
+
+    <p class="drop-cap-target">Vitucci's tienjaarsvoorspelling voor het overlevende accountantskantoor (rond 22:02&ndash;24:25 van de Onshore-aflevering):</p>
+
+    <blockquote>Ik denk niet dat je nog die dikke onderlaag hebt, want ik denk dat je AI-agenten zult hebben die het werk doen. En ik denk dat de mensen aan de top er vooral zijn voor sales. De omzet in de sector zal stijgen. Het personeelsbestand blijft ongeveer gelijk. <strong>De omzet per medewerker gaat door het dak.</strong></blockquote>
+
+    <div class="orgchart">
+      <div class="viz-label">Vergelijking &middot; organogram vandaag tegenover het overlevende kantoor in 2030</div>
+      <h4>De dikke onderlaag van junioren stort in. De vorm comprimeert zich naar boven.</h4>
+      <div class="org-toggle" role="tablist">
+        <button data-stage="now" class="active">Vandaag (2026)</button>
+        <button data-stage="future">Overlevend kantoor (2030)</button>
+      </div>
+      <div class="org-stage">
+        <svg viewBox="0 0 700 380" id="orgSvg" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="viz-caption" id="orgCaption">~108 mensen. ~$125K omzet/medewerker. Dikke onderlaag van junioren.</div>
+    </div>
+
+    <p>De vorm van het kantoor:</p>
+
+    <ul>
+      <li><strong>Een kleine laag van senior partners</strong> &mdash; voor sales en het binnenhalen van werk.</li>
+      <li><strong>Een laag voor naleving en expertise</strong> &mdash; voor de situaties die AI niet alleen aankan (nieuwe regulatoire interpretaties, audit-verdediging, complexe multi-jurisdictionele kwesties).</li>
+      <li><strong>Een software-engineering-laag</strong> &mdash; om de AI-infrastructuur te bouwen en te besturen.</li>
+      <li><strong>AI-agenten</strong> die doen wat de dikke onderlaag van junioren vroeger deed.</li>
+    </ul>
+
+    <p>Tom Blomfield (managing director bij YC, in gesprek met Vitucci) trekt de stelling door voorbij de boekhouding: <em>"De stelling dat softwareprogrammeurs geen code meer zullen schrijven, klonk negen maanden geleden krankzinnig en is nu bijna orthodoxie. Mijn stelling is dat hetzelfde gaat gebeuren met boekhouding, recht en audit. Tegen het einde van dit jaar zie ik een massaal besef dat AI deze kenniswerk-banen even goed of beter kan doen dan mensen, en toch komt er nog geen grote verandering in de werkgelegenheidsgraad &mdash; die komt misschien pas over vijf, zes of zeven jaar."</em></p>
+
+    <p>De koppeling van Tan en Hu (Stanford CS153) &mdash; <strong>primitieven als bedrijfsstructuur</strong> &mdash; is de versie op een hogere hoogte van dezelfde observatie:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Agentisch primitief van Tan</th><th>Komt overeen met (in het overlevende kantoor)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Skill</strong></td><td>Medewerker met een specifieke capaciteit</td></tr>
+          <tr><td><strong>Resolver</strong></td><td>Organogram</td></tr>
+          <tr><td><strong>GBrain / geheugen</strong></td><td>Intern proces / waar informatie zich bevindt</td></tr>
+          <tr><td><strong>Check-resolvable</strong></td><td>Audit / naleving</td></tr>
+          <tr><td><strong>Trigger eval</strong></td><td>Beoordelingsgesprek</td></tr>
+          <tr><td><strong>Skillify-protocol</strong></td><td>De tienstaps nalevingsdiscipline om een werkstroom te codificeren</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Het theoretisch best onderbouwde tegengeluid in de wiki tegen <em>volledige automatisering van junioren</em> komt van <strong>Chad Jones</strong> (Stanford GSB, mei 2026) &mdash; het <strong>radioloog-voorbeeld</strong>. Hinton voorspelde in 2016 geen radiologen meer over 5 jaar. In 2026 zijn er <em>meer</em> radiologen dan in 2016 en worden ze <em>beter</em> betaald. <em>"Banen zijn bundels van taken. Wanneer de AI er 75 automatiseert, zijn de zwakke schakels de dingen die nu schaars zijn en de hoge opbrengst opvangen."</em> Augmentatie houdt stand op de senior laag <em>omdat de senior laag de zwakke-schakel-taken bezit</em>; automatisering stort de juniorlaag in <em>omdat de juniorlaag de gecodificeerde taken bezit</em>.</p>
+
+    <p>De implicatie voor productontwerp: <strong>bouw voor de organisatievorm die je klant gaat worden, niet voor degene die hij vandaag is.</strong></p>
+
+    <ul>
+      <li>Als je product de structuur met de dikke onderlaag van junioren versterkt (bijvoorbeeld een tool die een leger junior-analisten nodig heeft om te bedienen), bouw je voor het verkeerde eind van de curve.</li>
+      <li>Als je product <strong>de juniorlaag laat instorten in de structuur van senior partners plus AI-agenten</strong>, bouw je voor het overlevende kantoor.</li>
+      <li>Het tussenscenario van succes: je product is <strong>de enabler van de nalevings- en expertiselaag</strong> &mdash; het geeft senior partners de AI-infrastructuur die ze nodig hebben om het werk te leveren waar vroeger 8 junioren voor nodig waren.</li>
+    </ul>
+
+    <div class="callout-acc">
+      <span class="callout-label">Callout boekhoudapplicatie</span>
+      <p>Over vijf jaar zien de kantoren waar je boekhoudapplicatie aan verkoopt er als volgt uit: <strong>4 senior partners; 6 specialisten in naleving en expertise; 4 software-engineers en AI-infrastructuur-mensen; meer dan 100 AI-agenten</strong> die doen wat vroeger 80 junioren deden. Ontwerp je product voor <em>die</em> klantorganisatie, niet voor de huidige. Concrete implicaties: <strong>(a)</strong> je UI moet ontworpen zijn voor gebruikers op senior-partner-niveau die AI-output moeten <em>controleren</em>, niet voor junior-analisten die output moeten <em>produceren</em>; <strong>(b)</strong> je audit-trail-oppervlak (<a href="#ch11">Hoofdstuk 11</a>) moet ontworpen zijn voor de dagelijkse beoordeling door de nalevingsspecialist; <strong>(c)</strong> je skills-marktplaats (<a href="#ch11">Hoofdstuk 11</a>) moet ontworpen zijn om uitgebreid te worden door de software-engineer aan kantoorzijde; <strong>(d)</strong> je prijsmodel moet ervan uitgaan dat het personeelsbestand van de klant gelijk blijft of krimpt terwijl zijn omzet groeit &mdash; dus prijsstelling per output, niet per gebruiker.</p>
+    </div>
+
+    <div class="ribbon action">
+      <strong>Actiepunt.</strong> Schets het organogram van je grootste klant over vijf jaar. Vergelijk het met zijn organogram van vandaag. Identificeer de drie productfuncties die essentieel zijn voor het <em>toekomstige</em> organogram, maar irrelevant voor het <em>huidige</em>. Schuif die functies naar voren in je roadmap.
+    </div>
+
+    <div class="ribbon anti">
+      <strong>Antipatroon.</strong> <em>"We voegen gebruikers en SKU's toe naarmate de klant groeit."</em> Als je verdienmodel afhankelijk is van het verkopen van meer gebruikers per klant, wed je tegen de voorspelling over de toekomstige vorm. Prijsstelling per output of per uitkomst is het juiste model voor een sector die zijn juniorlaag laat instorten.
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="app-a">
+    <div class="chapter-num">Bijlage A</div>
+    <h2 class="chapter-title">De acht <em>antipatronen</em></h2>
+
+    <p>De acht meest voorkomende vormen van falen, afgeleid uit dezelfde bronnenverzameling:</p>
+
+    <div class="anti-grid">
+      <div class="anti-card">
+        <div class="num">1</div>
+        <h4>Toch maar aan het kantoor verkopen</h4>
+        <p><em>"De waarde van het kantoor als distributiekanaal wordt ruimschoots overschaduwd door zijn prikkel om je af te remmen."</em> Zit je in maand 18 van verkopen aan het kantoor met acht klanten die niet doorpakken: neem afscheid van alle acht en schakel over op rechtstreekse verkoop.</p>
+        <span class="src">Vitucci &middot; <a href="#ch1">H 1</a></span>
+      </div>
+      <div class="anti-card">
+        <div class="num">2</div>
+        <h4>Product met een dikke onderlaag van junioren</h4>
+        <p>Producten die ervan uitgaan dat de organisatie van de klant veel junior-analisten heeft om de tool te bedienen, bouwen voor de organisatiestructuur die verdwijnt. Ontwerp voor de structuur die overleeft.</p>
+        <span class="src">Vitucci + Tan en Hu + Jones &middot; <a href="#ch14">H 14</a></span>
+      </div>
+      <div class="anti-card">
+        <div class="num">3</div>
+        <h4>Skills zonder bestuur</h4>
+        <p>Enthousiast skills aanmaken zonder eigenaarschap, beoordeling, levenscyclus en audit-trail-discipline produceert op schaal het <em>declaratie-debacle</em>. Bouw het bestuur vóór de adoptie, niet erna.</p>
+        <span class="src">Fernando &middot; <a href="#ch11">H 11</a></span>
+      </div>
+      <div class="anti-card">
+        <div class="num">4</div>
+        <h4>Verkoop te vroeg uitbesteden</h4>
+        <p>Een Head of Sales, account executives of AI-verkoopagenten aannemen vóór $1M ARR breekt de feedbacklus van <em>het verkoopteam dat engineering aanstuurt</em>. Verkoop door de oprichter is geen fase om uit te groeien; het is een discipline om vol te houden tot product-market-fit.</p>
+        <span class="src">Glasgow &middot; <a href="#ch7">H 7</a></span>
+      </div>
+      <div class="anti-card">
+        <div class="num">5</div>
+        <h4>Eerst vergelijkbare functionaliteit</h4>
+        <p>Volledige functionaliteit nastreven voordat je tegen een gevestigde partij naar de markt gaat, is een tienjarig project. De wig is de enige functie die je nodig hebt om de klant te winnen. Wees de beste in één ding, niet acceptabel in alles.</p>
+        <span class="src">Glasgow + Vitucci &middot; <a href="#ch3">H 3</a></span>
+      </div>
+      <div class="anti-card">
+        <div class="num">6</div>
+        <h4>Het model als verdedigingslinie</h4>
+        <p>Geloven dat het gefinetunede model je verdedigingslinie is, is een diep misverstand over de stack van 2026. Het model huur je; concurrenten halen je binnen het jaar in. De verdedigingslinie is de harness die je bezit en de context die de klant binnen jouw product opbouwt.</p>
+        <span class="src">Fernando + Chase &middot; <a href="#ch12">H 12</a></span>
+      </div>
+      <div class="anti-card">
+        <div class="num">7</div>
+        <h4>Tar pit als sector of als wig</h4>
+        <p><em>"Per definitie is iets pas een tar pit als het er niet op lijkt."</em> Sectoren en wiggen die sterke initiële validatie opleveren maar zakken voor de retentietest zijn de duurste vorm van falen in dit handboek &mdash; ze kosten <em>jaren</em> om te herkennen, geen maanden. Pas Caldwells diagnose &mdash; <em>kun-je-goede-initiële-validatie-krijgen-en-toch-falen</em> &mdash; op elk niveau toe: klantkeuze (<a href="#ch1">H 1</a>), sectorkeuze (<a href="#ch2">H 2</a>), wigkeuze (<a href="#ch3">H 3</a>). Is de afnemer enthousiast in het eerste gesprek maar kun je geen retentiesignaal in de tweede maand aanwijzen, behandel de validatie dan als positief-maar-onvoldoende.</p>
+        <span class="src">Caldwell &middot; <a href="#ch2">H 2</a></span>
+      </div>
+      <div class="anti-card">
+        <div class="num">8</div>
+        <h4>Engineering-principes loslaten onder AI-volume</h4>
+        <p>Door AI gegenereerde code in 10 keer hoger tempo zonder DRY-, SOLID- of YAGNI-discipline produceert 10 keer zoveel technische schuld &mdash; en <em>"niemand heeft door AI gegenereerde code 5 jaar lang onderhouden"</em> (Ivers). Engineering-principes worden niet goedkoper onder AI; ze worden <em>belangrijker</em>, omdat er sneller meer beslissingen worden genomen. De triangulatie op drie niveaus (Schoening, Bender, SEI) in <a href="#ch10">H 10</a>: <strong>snelheid is een verkoopsignaal, maar engineering-discipline is wat de vijfjarige onderhoudshorizon overleeft</strong> &mdash; en referentiechecks aan de inkoopkant vragen naar beide.</p>
+        <span class="src">Ivers + Benitez / SEI &middot; <a href="#ch10">H 10</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter fade-in" id="app-b">
+    <div class="chapter-num">Bijlage B</div>
+    <h2 class="chapter-title">Bronnenkaart van de <em>wiki</em></h2>
+
+    <p style="margin: 1.25rem 0; font-size: 0.95rem; color: var(--c-text-secondary);">Elke geciteerde bron linkt rechtstreeks naar de bijbehorende pagina op de wiki van <a href="https://businessdatasolutions.github.io/ai-wiki/" target="_blank" rel="noopener">businessdatasolutions.github.io/ai-wiki</a>.</p>
+
+    <h3>Primaire ankerpunten</h3>
+    <ul class="source-list">
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-03-07-vitucci-onshore-next-industry-ai-will-disrupt" target="_blank" rel="noopener"><code>2026-03-07-vitucci-onshore-next-industry-ai-will-disrupt</code></a> &mdash; Dominic Vitucci, oprichter/CEO Onshore (YC W23), AI voor vennootschapsbelasting en boekhouding. Het diepste ankerpunt in de wiki voor AI-disruptie van de professionele dienstverlening.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-20-glasgow-campfire-erp-for-ai-revolution" target="_blank" rel="noopener"><code>2026-05-20-glasgow-campfire-erp-for-ai-revolution</code></a> &mdash; John Glasgow, oprichter/CEO Campfire (YC S23), AI-native ERP. Het eerste ankerpunt in de wiki voor de stelling van de AI-native veiligheidsomkering op het niveau van de inkoopkamer.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-21-fernando-man-group-trading-signals-that-trade-themselves" target="_blank" rel="noopener"><code>2026-05-21-fernando-man-group-trading-signals-that-trade-themselves</code></a> &mdash; Tushara Fernando, hoofd data en AI bij Man Group (200 miljard dollar onder beheer). Het sterkste empirische ankerpunt in de wiki voor bestuur over skills op enterprise-schaal.</li>
+    </ul>
+
+    <h3>Ankerpunten voor oprichtersdoctrine</h3>
+    <ul class="source-list">
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-20-tan-hu-stanford-cs153-ai-native-company-1000x-engineer" target="_blank" rel="noopener"><code>2026-05-20-tan-hu-stanford-cs153-ai-native-company-1000x-engineer</code></a> &mdash; Garry Tan en Diana Hu (Y Combinator) bij Stanford CS153. Architectuur van het AI-native bedrijf; koppeling primitieven aan bedrijfsstructuur; organisatiemodel IC / DRI / AI-oprichterstype; ijkpunt $1 à 2 miljoen omzet per medewerker.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-21-chase-langchain-interrupt-26-future-of-ai-agents" target="_blank" rel="noopener"><code>2026-05-21-chase-langchain-interrupt-26-future-of-ai-agents</code></a> &mdash; Harrison Chase, CEO LangChain, keynote Interrupt 26. Drielaags continu-leermodel (model, harness, context); evals als gradient.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-04-24-hu-yc-how-to-build-a-company-with-ai-from-the-ground-up" target="_blank" rel="noopener"><code>2026-04-24-hu-yc-how-to-build-a-company-with-ai-from-the-ground-up</code></a> &mdash; Hu's eerdere volledige formulering van de AI-native-bedrijfsdoctrine.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2024-04-18-caldwell-lennys-podcast-lessons-1000-yc-startups-tarpit-ideas" target="_blank" rel="noopener"><code>2024-04-18-caldwell-lennys-podcast-lessons-1000-yc-startups-tarpit-ideas</code></a> &mdash; Dalton Caldwell (managing director / group partner Y Combinator, 21 batches). De YC-partner-doctrine van vóór de AI-substraatverschuiving: tar-pit-ideeën; methodisch pivoten (het uitgewerkte voorbeeld van Zip naar inkoop als het door Caldwell gecoachte sjabloon <em>vind-een-gevestigde-partij-met-lage-NPS</em>); klantvalidatie als startpunt; de contraire stelling dat growth-hacking voortijdig is in de seed-fase; de 2024-inventaris van gevraagde startups (Caldwells persoonlijk geschreven prompt voor ERP's &rarr; het stroomafwaartse uitgewerkte voorbeeld van Glasgow en Campfire).</li>
+    </ul>
+
+    <h3>Ankerpunten vanuit de praktijk</h3>
+    <ul class="source-list">
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-02-schoening-lennys-podcast-cultivating-agency-ai-era" target="_blank" rel="noopener"><code>2026-05-02-schoening-lennys-podcast-cultivating-agency-ai-era</code></a> &mdash; Max Schoening (Notion). Handelingsvermogen als duurzame AI-tijdperk-vaardigheid; vignetten van Brian Leven en Eric Lou; metafoor prototype versus engineering.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-19-mittal-yhangry-private-chef-all-in-on-ai-agents" target="_blank" rel="noopener"><code>2026-05-19-mittal-yhangry-private-chef-all-in-on-ai-agents</code></a> &mdash; Siddhi Mittal (Yhangry). Het vignet over <em>de tech lead die in een week werd ontslagen</em> als de meest directe verwoording van de urgentie van organisatieontwerp.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-19-garg-yc-internal-ai-agent-evolves-itself" target="_blank" rel="noopener"><code>2026-05-19-garg-yc-internal-ai-agent-evolves-itself</code></a> &mdash; Ayush Garg (AnswerThis). $2M ARR met 2 FTE; zelfuitbreidende Claude Code-harness; Ryan als variant van geloofwaardigheid vanuit eigenaarschap van de werkstroom.</li>
+    </ul>
+
+    <h3>Ankerpunten met sectorvoorbeelden</h3>
+    <ul class="source-list">
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-11-hill-vori-grocery-os-paper-and-fax" target="_blank" rel="noopener"><code>2026-05-11-hill-vori-grocery-os-paper-and-fax</code></a> &mdash; Brandon Hill (Vori). Voorraad-app als wig &rarr; vierjarige uitbreiding van een compound startup.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-04-16-bodewes-phonely-ai-callers-think-is-human" target="_blank" rel="noopener"><code>2026-04-16-bodewes-phonely-ai-callers-think-is-human</code></a> &mdash; Will Bodewes (Phonely). Wig van AI-telefonie voor callcenters.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-13-jha-emergent-democratizing-app-building-with-claude" target="_blank" rel="noopener"><code>2026-05-13-jha-emergent-democratizing-app-building-with-claude</code></a> &mdash; Mukund Jha (Emergent). $100M ARR in 8 maanden; asymmetrie in adoptiesnelheid die de long tail bevoordeelt; drietal <em>verdedigingslinies die intelligentie alleen niet kan overwinnen</em>.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-04-25-masad-replit-ceo-only-two-jobs-left" target="_blank" rel="noopener"><code>2026-04-25-masad-replit-ceo-only-two-jobs-left</code></a> &mdash; Amjad Masad (Replit). <em>Maar twee banen die overblijven: bouwer en verkoper.</em></li>
+    </ul>
+
+    <h3>Theoretische en academische ankerpunten</h3>
+    <ul class="source-list">
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-21-jones-stanford-gsb-ai-and-our-economic-future" target="_blank" rel="noopener"><code>2026-05-21-jones-stanford-gsb-ai-and-our-economic-future</code></a> &mdash; Chad Jones (Stanford GSB). Macro-economisch model van de zwakke schakels; banen als bundels van taken; uitgewerkt voorbeeld Hinton en de radioloog.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-20-agrawal-stanford-mse435-economics-of-generative-ai" target="_blank" rel="noopener"><code>2026-05-20-agrawal-stanford-mse435-economics-of-generative-ai</code></a> &mdash; Apoorv Agrawal (Altimeter / Stanford MS&amp;E 435). Historische parallel met de achtjarige AWS-investeringscyclus; diagnose 'ben je een functie of een platform'.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-21-bender-google-io-software-engineering-tipping-point" target="_blank" rel="noopener"><code>2026-05-21-bender-google-io-software-engineering-tipping-point</code></a> &mdash; Adam Bender (Google). Sociotechnische ecologie; onderscheid programmeren versus engineering op AI-tijdperk-schaal; DORA-onderbouwde framing van <em>AI als versterker</em>.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-21-sinclair-ivers-benitez-sei-cmu-ai-native-software-engineering" target="_blank" rel="noopener"><code>2026-05-21-sinclair-ivers-benitez-sei-cmu-ai-native-software-engineering</code></a> &mdash; Scott Sinclair, James Ivers en Mario Benitez (Software Engineering Institute, Carnegie Mellon University). De stem van het institutionele onderzoekscentrum over discipline in AI-native software-engineering. <em>"AI-native is niet AI-only"</em> (Ivers); engineering-principes houden stand (DRY, SOLID, YAGNI); het uitgewerkte voorbeeld van het 25.000-regel-vibe-coding-experiment; onderspecificatie als de slechte praktijk die AI het meest uitvergroot; <em>niemand heeft door AI gegenereerde code 5 jaar lang onderhouden</em>; slop-squatting als nieuwe aanvalsvector; framing van de rolverschuiving van coder naar software-engineer; Benitez' compileranalogie over de niet-deterministische eigenschap van de nieuwe abstractieverschuiving.</li>
+    </ul>
+  </section>
+
+  <section class="chapter fade-in" id="app-c">
+    <div class="chapter-num">Bijlage C</div>
+    <h2 class="chapter-title">Verder <em>lezen</em></h2>
+
+    <p>Aanvullende conceptpagina's op de wiki die op specifieke onderwerpen dieper gaan dan dit handboek:</p>
+
+    <ul class="source-list">
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/concepts/agent-harness" target="_blank" rel="noopener"><code>concepts/agent-harness</code></a> &mdash; de drielaagse architectuur (model + harness + context) waarop <a href="#ch11">H 11 (harness-laag)</a> en <a href="#ch12">H 12 (context-laag)</a> voortbouwen. 40 bronankerpunten, het grootste cluster van de wiki.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/concepts/enterprise-ai-adoption" target="_blank" rel="noopener"><code>concepts/enterprise-ai-adoption</code></a> &mdash; het klanttraject <em>wig &rarr; ERP-transplantatie</em> plus <em>no-code-domeinexperts-bouwen-eigen-tools</em>, waar Hoofdstukken 1, 3 en 4 naar verwijzen. 42 bronankerpunten.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/concepts/durable-skills" target="_blank" rel="noopener"><code>concepts/durable-skills</code></a> &mdash; Schoenings framing van <em>handelingsvermogen als geneigdheid tot handelen</em>; achtergrond bij de rollen-die-je-nodig-hebt van Hoofdstuk 6.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/concepts/ai-employment-effects" target="_blank" rel="noopener"><code>concepts/ai-employment-effects</code></a> &mdash; het zwakke-schakelsmodel van Jones; de sectorkeuze-framing van Hoofdstuk 2 en de toekomstige-vorm-voorspelling van Hoofdstuk 14.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/concepts/dynamic-capabilities" target="_blank" rel="noopener"><code>concepts/dynamic-capabilities</code></a> &mdash; de bril van Warner en W&auml;ger op wat enterprise-afnemers proberen op te bouwen, het spiegelbeeld aan de vraagkant van wat jouw product aanbiedt.</li>
+      <li><a href="https://businessdatasolutions.github.io/ai-wiki/syntheses/strategy-finite-vs-infinite-game" target="_blank" rel="noopener"><code>syntheses/strategy-finite-vs-infinite-game</code></a> &mdash; Sineks gelaagde framing van eindige tegenover oneindige spellen. Het afsluitende filosofische kader voor <em>waarom je dit doet voor de komende 10 jaar, niet voor de komende 18 maanden</em>.</li>
+    </ul>
+
+    <p style="margin-top:2.5rem; font-style:italic; color:var(--c-text-secondary); font-size:0.95rem;">Dit handboek is een werkdocument in <code>inspiration/</code>. De twaalfdelige bronsynthese waarop het voortbouwt, staat in <code>inspiration/2026-05-22-lessons-for-ai-native-accountancy-app-founder.md</code>. Als een toekomstige iteratie dit handboek formaliseert tot een wikipagina, komt die te staan op <code>wiki/syntheses/founders-handbook-ai-native-vertical-startup.md</code>, met volledige frontmatter, getypeerde <code>supports</code>-randen naar de primaire ankerpunten en een <code>derived_from:</code>-koppeling naar de twaalfdelige draad.</p>
+
+    <p style="margin-top:1.25rem; font-style:italic; color:var(--c-text-secondary); font-size:0.95rem;">Bijgewerkt op 22 mei 2026 met de twee video-ingests van die dag &mdash; <a href="https://businessdatasolutions.github.io/ai-wiki/sources/2024-04-18-caldwell-lennys-podcast-lessons-1000-yc-startups-tarpit-ideas" target="_blank" rel="noopener">Caldwell / Lenny's Podcast</a> als doctrinair ankerpunt van vóór de AI-substraatverschuiving (toevoegingen in het voorwoord en Hoofdstukken 1, 2, 3 en 7; Bijlage A item 7; ankerpunten oprichtersdoctrine in Bijlage B), en <a href="https://businessdatasolutions.github.io/ai-wiki/sources/2026-05-21-sinclair-ivers-benitez-sei-cmu-ai-native-software-engineering" target="_blank" rel="noopener">Ivers + Benitez / SEI-CMU</a> als stem van het institutionele onderzoekscentrum over <em>engineering-discipline die standhoudt</em> (toevoegingen in het voorwoord en Hoofdstukken 10, 11 en 12; Bijlage A item 8; theoretische en academische ankerpunten in Bijlage B).</p>
+  </section>
+
+</article>
+
+<footer class="book-footer">
+  <div class="finis">~ Einde ~</div>
+  <div class="meta">22 mei 2026 &middot; 14 hoofdstukken &middot; 3 bijlagen</div>
+  <a href="#" class="top-link">&uarr; Terug naar omslag</a>
+
+  <div class="colophon">
+    <svg class="brand-mark" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Business Data Solutions">
+      <g fill="#f5f0e6">
+        <polygon points="9,29 11,10 17,10 19,29"/>
+        <polygon points="8,8.5 20,8.5 19,10 9,10"/>
+        <rect x="11" y="5" width="6" height="3.5"/>
+        <path d="M10.5 5 Q10.5 1.5 14 1.5 Q17.5 1.5 17.5 5 Z"/>
+        <rect x="13.5" y="0" width="1" height="1.8"/>
+      </g>
+      <rect x="13" y="6" width="2" height="2" fill="#d4db3e"/>
+      <g stroke="#d4db3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M21 4 L26 7 L21 10"/>
+        <path d="M26 4 L31 7 L26 10"/>
+      </g>
+    </svg>
+    <span>Een uitgave van <span class="name">Business Data Solutions</span> &middot; <a href="https://businessdatasolutions.nl">businessdatasolutions.nl</a></span>
+  </div>
+</footer>
+
+<script type="module">
+  import { animate, inView } from "https://cdn.jsdelivr.net/npm/motion@10.18.0/+esm";
+
+  const SVG_NS = "http://www.w3.org/2000/svg";
+
+  /* ---------- progress bar ---------- */
+  const progress = document.getElementById('progress');
+  function updateProgress() {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    progress.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---------- toc ---------- */
+  const toc = document.getElementById('toc');
+  const tocToggle = document.getElementById('tocToggle');
+  const tocLinks = document.querySelectorAll('aside.toc a[data-target]');
+  tocToggle.addEventListener('click', () => toc.classList.toggle('open'));
+  tocLinks.forEach(a => a.addEventListener('click', () => {
+    if (window.innerWidth < 900) toc.classList.remove('open');
+  }));
+  document.addEventListener('click', (e) => {
+    if (!toc.contains(e.target) && e.target !== tocToggle && toc.classList.contains('open')) {
+      toc.classList.remove('open');
+    }
+  });
+
+  /* ---------- pdf-download (gebruikt de native print-naar-PDF van de browser) ---------- */
+  const pdfToggle = document.getElementById('pdfToggle');
+  pdfToggle.addEventListener('click', () => {
+    // Forceer elke fade-in-sectie naar zijn definitieve zichtbare staat zodat niets blanco rendert in de PDF
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    // Forceer de omzetbalken van Hoofdstuk 13 naar hun definitieve breedte (ze starten op 0% vóór animatie)
+    document.querySelectorAll('#revChart .rev-bar').forEach(bar => {
+      if (bar.dataset.pct) bar.style.width = bar.dataset.pct + '%';
+    });
+    // Sluit de inhoudsopgave als die toevallig openstaat
+    toc.classList.remove('open');
+    // Geef de browser één frame om de wijzigingen te committen, open dan het print-dialoog
+    requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+  });
+
+  /* ---------- active section highlighter ---------- */
+  const sections = document.querySelectorAll('article.book section[id], header.cover');
+  const targetMap = {};
+  tocLinks.forEach(a => { targetMap[a.dataset.target] = a; });
+  const sectObserver = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        const id = en.target.id;
+        Object.values(targetMap).forEach(a => a.classList.remove('active'));
+        if (targetMap[id]) targetMap[id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+  sections.forEach(s => sectObserver.observe(s));
+
+  /* ---------- fade-in on scroll ---------- */
+  document.querySelectorAll('.fade-in').forEach(el => {
+    inView(el, () => { el.classList.add('visible'); }, { amount: 0.15 });
+  });
+
+  /* ---------- Ch 2 · Diagnostic ---------- */
+  const rLib = document.getElementById('rLib');
+  const rFwd = document.getElementById('rFwd');
+  const rBil = document.getElementById('rBil');
+  const vLib = document.getElementById('vLib');
+  const vFwd = document.getElementById('vFwd');
+  const vBil = document.getElementById('vBil');
+  const diagScore = document.getElementById('diagScore');
+  const diagVerdict = document.getElementById('diagVerdict');
+  const diagReadout = document.getElementById('diagReadout');
+  function updateDiag() {
+    const a = +rLib.value, b = +rFwd.value, c = +rBil.value;
+    vLib.textContent = a; vFwd.textContent = b; vBil.textContent = c;
+    const total = a + b + c;
+    diagScore.textContent = total;
+    diagReadout.classList.remove('go', 'maybe', 'no');
+    let verdict;
+    if (total >= 7) { verdict = 'Sterke fit — ga er vol voor.'; diagReadout.classList.add('go'); }
+    else if (total >= 5) { verdict = 'Twijfelgeval — spreek 5 afnemers.'; diagReadout.classList.add('maybe'); }
+    else { verdict = 'Structureel ongunstig. Laat schieten.'; diagReadout.classList.add('no'); }
+    diagVerdict.textContent = verdict;
+  }
+  [rLib, rFwd, rBil].forEach(r => r.addEventListener('input', updateDiag));
+  updateDiag();
+
+  /* ---------- Ch 8 · Flip viz ---------- */
+  inView('#flipViz', () => {
+    const arrow = document.getElementById('flipArrow');
+    const sides = [document.getElementById('flipPre'), document.getElementById('flipPost')];
+    animate(arrow, { rotate: [0, 180] }, { duration: 1.4, easing: [0.65, 0, 0.35, 1] });
+    sides.forEach((s, i) => animate(s, { y: [16, 0], opacity: [0, 1] }, { duration: 0.7, delay: i * 0.2 }));
+  });
+
+  /* ---------- Ch 13 · Animated bars ---------- */
+  inView('#revChart', () => {
+    document.querySelectorAll('#revChart .rev-bar').forEach((bar, i) => {
+      setTimeout(() => { bar.style.width = bar.dataset.pct + '%'; }, 200 + i * 200);
+    });
+  });
+
+  /* ---------- Ch 14 · Org chart morph (safe DOM construction) ---------- */
+  const orgSvg = document.getElementById('orgSvg');
+  const orgCaption = document.getElementById('orgCaption');
+  const orgButtons = document.querySelectorAll('.org-toggle button');
+
+  const ORG_STAGES = {
+    now: {
+      rows: [
+        { label: 'Senior partners',  color: '#b8c024', count: 4, y: 40 },
+        { label: 'Managers',         color: '#d4db3e', count: 8, y: 90 },
+        { label: 'Seniors',          color: '#9ca3af', count: 16, y: 140 },
+        { label: 'Junioren',         color: '#6b7280', count: 80, y: 200 },
+      ],
+      caption: '~108 mensen. ~$125K omzet/medewerker. Dikke onderlaag van junioren.'
+    },
+    future: {
+      rows: [
+        { label: 'Senior partners',     color: '#b8c024', count: 4, y: 40 },
+        { label: 'Nalevingsleads',      color: '#4a7c3a', count: 6, y: 90 },
+        { label: 'AI-engineers',        color: '#3b82f6', count: 4, y: 140 },
+        { label: 'AI-agenten',          color: '#1a1a1a', count: 100, y: 200 },
+      ],
+      caption: '14 mensen + 100 AI-agenten. ~$1M+ omzet/mens. Juniorlaag ingestort.'
+    }
+  };
+
+  function createSvgEl(tag, attrs) {
+    const el = document.createElementNS(SVG_NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+
+  function clearSvg(svg) {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+  }
+
+  function renderOrg(stageKey) {
+    const stage = ORG_STAGES[stageKey];
+    clearSvg(orgSvg);
+    stage.rows.forEach(row => {
+      const cols = Math.min(row.count, 20);
+      const rowsN = Math.ceil(row.count / cols);
+      const startX = 350 - (cols * 14) / 2 + 7;
+      let drawn = 0;
+      for (let r = 0; r < rowsN; r++) {
+        const inRow = Math.min(cols, row.count - drawn);
+        const offset = (cols - inRow) * 7;
+        for (let i = 0; i < inRow; i++) {
+          const cx = startX + offset + i * 14;
+          const cy = row.y + r * 14;
+          const c = createSvgEl('circle', {
+            cx, cy, r: 4.5,
+            fill: row.color,
+            stroke: '#111827',
+            'stroke-width': 0.5
+          });
+          orgSvg.appendChild(c);
+          drawn++;
+        }
+      }
+      const labelText = createSvgEl('text', {
+        x: 40, y: row.y + 5,
+        'font-family': 'DM Sans',
+        'font-size': 10,
+        fill: '#6b7280',
+        'letter-spacing': '0.06em'
+      });
+      labelText.textContent = row.label;
+      orgSvg.appendChild(labelText);
+
+      const countText = createSvgEl('text', {
+        x: startX + cols * 14 + 10, y: row.y + 5,
+        'font-family': 'JetBrains Mono',
+        'font-size': 11,
+        fill: '#111827'
+      });
+      countText.textContent = '×' + row.count;
+      orgSvg.appendChild(countText);
+    });
+    orgCaption.textContent = stage.caption;
+  }
+
+  function animateOrgDots() {
+    requestAnimationFrame(() => {
+      const dots = orgSvg.querySelectorAll('circle');
+      dots.forEach((d, i) => {
+        animate(d, { opacity: [0, 1], r: [0, 4.5] }, { duration: 0.4, delay: i * 0.005, easing: [0.16, 1, 0.3, 1] });
+      });
+    });
+  }
+
+  renderOrg('now');
+
+  orgButtons.forEach(btn => btn.addEventListener('click', () => {
+    orgButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderOrg(btn.dataset.stage);
+    animateOrgDots();
+  }));
+
+  inView('#ch14 .orgchart', () => {
+    animateOrgDots();
+  });
+</script>
+
+</body>
+</html>
